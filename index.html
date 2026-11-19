@@ -119,7 +119,7 @@ a:hover,a:focus-visible{text-decoration-thickness:3px}
 .statictitle{position:relative;z-index:2;flex:1;display:flex;align-items:center;color:#fff;
   font-family:var(--head);font-size:clamp(3rem,12vw,9rem);font-weight:800;letter-spacing:-.06em;line-height:1}
 .js .statictitle{visibility:hidden}
-html:not(.js) #stage,html:not(.js) .hint{display:none}
+html:not(.js) #stage{display:none}
 .heroui{position:relative;z-index:3;margin-top:auto;padding:var(--s7) 0 var(--s6);pointer-events:none;
   background:linear-gradient(to bottom,rgba(10,13,12,0),rgba(10,13,12,.85) 45%)}
 .heroui .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s5);flex-wrap:wrap}
@@ -128,7 +128,6 @@ html:not(.js) #stage,html:not(.js) .hint{display:none}
 .heroui .txt,.heroui .btn{opacity:0;animation:fade 1.2s ease 1.4s forwards}
 .heroui .btn{pointer-events:auto;--btn-bg:var(--mint);--btn-fg:var(--black);animation-delay:1.6s}
 @keyframes fade{to{opacity:1}}
-.hint{position:absolute;top:50%;left:50%;transform:translate(-50%,7rem);z-index:3;font-size:.875rem;color:var(--hero-grey);opacity:0;animation:fade 1.2s ease 2.2s forwards;pointer-events:none;white-space:nowrap}
 
 /* ================= TICKER (lifted from the current site) ================= */
 .tick{display:flex;align-items:center;background:var(--mint);color:var(--black);position:relative;z-index:5;--focus:var(--black)}
@@ -250,7 +249,7 @@ footer .small{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  #stage,.hint{display:none}
+  #stage{display:none}
   .js .statictitle{visibility:visible}
   .heroui .txt,.heroui .btn{opacity:1}
   .js .tick__btn{display:none}
@@ -278,7 +277,6 @@ footer .small{color:var(--muted)}
     </div>
   </nav>
   <div class="statictitle" aria-hidden="true"><div class="wrap">CapirAI</div></div>
-  <div class="hint" aria-hidden="true">move your cursor through it</div>
   <div class="heroui">
     <div class="wrap">
       <div class="txt">
