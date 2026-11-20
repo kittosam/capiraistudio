@@ -182,18 +182,26 @@ html:not(.js) #stage{display:none}
 .sit a::before{content:"→ ";content:"→ " / "";text-decoration:none;display:inline}
 @media (max-width:36rem){.sit{grid-template-columns:1fr}}
 
-/* courses */
-.course{scroll-margin-top:var(--s4);position:relative;transition:padding var(--move) var(--ease)}
-.course .head{display:flex;gap:var(--s3);align-items:baseline}
-.course .head .n{font-family:var(--head);font-weight:700;color:var(--fg2);flex:none;min-width:2ch}
-.course:target{box-shadow:inset 4px 0 0 var(--pine);padding-left:var(--s4);animation:landed 1.8s var(--ease)}
-@keyframes landed{from{background:rgba(14,42,43,.1)}to{background:transparent}}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s4);padding:var(--s3) 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.facts div{display:flex;flex-direction:column;gap:var(--s1)}
-.facts dt{font-size:.875rem;color:var(--fg2)}
-.facts dd{font-size:1rem;font-weight:700;line-height:1.35}
-@media (max-width:36rem){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.course .ask{font-weight:700}
+/* courses: heading above, full-width rows; text on white, details in a dark green panel */
+.stacked .rail{max-width:40rem;position:static}
+.stacked .courses{margin-top:var(--s6)}
+.courses{list-style:none;display:grid;gap:var(--s4)}
+.course{max-width:none;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);background:#fff;border-radius:1rem;overflow:hidden;scroll-margin-top:var(--s4)}
+.course .txt{padding:clamp(1.5rem,3vw,2rem)}
+.course .txt > * + *{margin-top:var(--s3)}
+.course .n{font-family:var(--head);font-weight:800;font-size:1rem;color:var(--teal)}
+.course .txt h3{margin-top:var(--s1)}
+.course .spec{background:var(--pine);color:var(--on-dark);padding:clamp(1.5rem,3vw,2rem);display:flex;flex-direction:column;gap:var(--s4);
+  --fg2:var(--on-dark-2);--focus:var(--mint)}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s2) var(--s3);font-size:1rem;line-height:1.35}
+.facts div{display:contents}
+.facts dt{color:var(--on-dark-2)}
+.facts dd{font-family:var(--head);font-weight:700}
+.course .spec .btn{--btn-bg:var(--mint);--btn-fg:var(--black);margin-top:auto;align-self:flex-start;min-height:2.75rem;padding:.5rem 1.2rem;white-space:nowrap}
+.btn .arr{transition:transform var(--move) var(--ease)}
+.btn:hover .arr,.btn:focus-visible .arr{transform:translateX(4px)}
+.course:target{outline:4px solid var(--pine);outline-offset:4px}
+@media (max-width:60rem){.course{grid-template-columns:1fr}}
 
 /* disclosures (courses, questions) */
 details > summary{display:inline-flex;align-items:center;gap:var(--s2);min-height:2.75rem;cursor:pointer;list-style:none;color:var(--link);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
@@ -212,6 +220,22 @@ details > :not(summary){margin-top:var(--s3)}
 .faq summary:hover h3,.faq summary:focus-visible h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.2em}
 .faq details > :not(summary){padding-left:calc(.5em + var(--s2) + 2px)}
 
+/* free taster: a mint ticket on the dark green */
+.ticket{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);background:var(--mint);color:var(--black);border-radius:1.25rem;overflow:hidden;
+  --fg:var(--black);--focus:var(--black)}
+.ticket .main,.ticket .stub{padding:clamp(1.5rem,4vw,3rem)}
+.ticket .eyebrow{font-family:var(--head);font-weight:800;font-size:.875rem;letter-spacing:.08em}
+.ticket h2{margin-top:var(--s3)}
+.ticket .main p + p{margin-top:var(--s3)}
+.ticket .main .eyebrow + h2 + p{margin-top:var(--s3)}
+.ticket .stub{border-left:3px dashed rgba(10,13,12,.4);display:flex;flex-direction:column;gap:var(--s3)}
+.ticket .when{font-family:var(--head);font-weight:800;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);line-height:1.15}
+.ticket .tags{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.ticket .tags li{border:1.5px solid var(--black);border-radius:2rem;padding:.1rem .75rem;font-family:var(--head);font-weight:700;font-size:.9375rem}
+.ticket .btn{--btn-bg:var(--black);--btn-fg:var(--mint);margin-top:auto;align-self:flex-start}
+.ticket .small{font-size:.9375rem}
+@media (max-width:52rem){.ticket{grid-template-columns:1fr}.ticket .stub{border-left:0;border-top:3px dashed rgba(10,13,12,.4)}}
+
 /* how I work */
 .steps{counter-reset:step}
 .steps .row{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:var(--s1) var(--s3)}
@@ -223,7 +247,7 @@ details > :not(summary){margin-top:var(--s3)}
 .price-list div:first-child{border-top:1px solid var(--rule)}
 .price-list dd{font-weight:700;white-space:nowrap;text-align:right}
 /* Atkinson draws a slashed zero; set figures in the heading font so prices read cleanly */
-.price-list dd,.facts dd{font-family:var(--head)}
+.price-list dd{font-family:var(--head)}
 @media (max-width:30rem){.price-list div{flex-direction:column;gap:0}.price-list dd{text-align:left}}
 
 /* about */
@@ -307,31 +331,27 @@ footer .small{color:var(--muted)}
 
 <!-- FREE TASTER ===================================================== -->
 <section class="sec s-pine" id="taster" aria-labelledby="taster-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <h2 id="taster-h">Free taster: AI, who's behind it and how to use it well</h2>
-    </div>
-    <div class="rows">
-      <div class="row">
-        <p class="lead">A 60-minute online session for people who use AI at work, or are about to, and want to understand it better. We look at how generative AI works in plain words, who builds it and who pays for it, including the data, the low-paid work and the energy behind it, and who regulates it in the UK and the EU. Then we try it on a real work task and look at how to check what comes back.</p>
+  <div class="wrap">
+    <div class="ticket">
+      <div class="main">
+        <p class="eyebrow">FREE TASTER · ONLINE</p>
+        <h2 id="taster-h">Free taster: AI, who's behind it and how to use it well</h2>
+        <p>A 60-minute online session for people who use AI at work, or are about to, and want to understand it better. We look at how generative AI works in plain words, who builds it and who pays for it, including the data, the low-paid work and the energy behind it, and who regulates it in the UK and the EU. Then we try it on a real work task and look at how to check what comes back.</p>
       </div>
-      <dl class="pairs" style="border-top:0">
-        <div class="row"><dt>When</dt><dd><mark class="todo">[DATE AND TIME]</mark></dd></div>
-        <div class="row"><dt>Where</dt><dd>online</dd></div>
-        <div class="row"><dt>Length</dt><dd>60 minutes</dd></div>
-        <div class="row"><dt>Cost</dt><dd>free</dd></div>
-        <div class="row"><dt>Places</dt><dd>up to 20</dd></div>
-      </dl>
-      <div class="row">
-        <a class="btn" href="[FORM LINK]">Register for the taster</a>
-        <p>The form asks a few questions about your role and what you'd like to learn, so I can shape the session around the people coming.</p>
+      <div class="stub">
+        <p class="when"><mark class="todo">[DATE AND TIME]</mark></p>
+        <ul class="tags" aria-label="Details">
+          <li>Online</li><li>60 minutes</li><li>Free</li><li>Up to 20 places</li>
+        </ul>
+        <a class="btn" href="[FORM LINK]">Register for the taster <span class="arr" aria-hidden="true">→</span></a>
+        <p class="small">The form asks a few questions about your role and what you'd like to learn, so I can shape the session around the people coming.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 01 WHAT I DO ====================================================== -->
-<section class="sec s-pine same" id="what" aria-labelledby="what-h">
+<section class="sec s-pine" id="what" aria-labelledby="what-h">
   <div class="wrap ledger">
     <div class="rail">
       <p class="num">01</p>
@@ -385,81 +405,106 @@ footer .small{color:var(--muted)}
 
 <!-- 03 COURSES ======================================================== -->
 <section class="sec s-mint same" id="courses" aria-labelledby="courses-h">
-  <div class="wrap ledger">
+  <div class="wrap stacked">
     <div class="rail">
       <p class="num">03</p>
       <h2 id="courses-h">courses</h2>
       <p>Five workshops, available from spring 2027. If one fits your team, register your interest and I'll be in touch when dates open. Prices are per session, not per person.</p>
       <a class="next" href="#prices">All prices</a>
     </div>
-    <ol class="rows" role="list">
+    <ol class="courses" role="list">
 
-      <li class="row course" id="c-foundations">
-        <div class="head"><span class="n">01</span><h3>AI foundations for teams</h3></div>
-        <p><span class="label">For: </span>a whole team, including people who have never used these tools.</p>
-        <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point: how these tools work, who is behind them and what that means for your organisation, and how to use them well on the documents you already work with.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>Half day (3½ hours)</dd></div>
-          <div><dt>Group</dt><dd>Up to 15</dd></div>
-          <div><dt>Format</dt><dd>In person or online</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Available</dt><dd>Spring 2027</dd></div>
-        </dl>
-        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI foundations for teams">Register interest</a>
+      <li class="course" id="c-foundations">
+        <div class="txt">
+          <p class="n">01</p>
+          <h3>AI foundations for teams</h3>
+          <p><span class="label">For: </span>a whole team, including people who have never used these tools.</p>
+          <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point: how these tools work, who is behind them and what that means for your organisation, and how to use them well on the documents you already work with.</p>
+        </div>
+        <div class="spec">
+          <dl class="facts">
+            <div><dt>Length</dt><dd>Half day (3½ hours)</dd></div>
+            <div><dt>Group</dt><dd>Up to 15</dd></div>
+            <div><dt>Format</dt><dd>In person or online</dd></div>
+            <div><dt>Language</dt><dd>English or Italian</dd></div>
+            <div><dt>Available</dt><dd>Spring 2027</dd></div>
+          </dl>
+          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI foundations for teams">Register interest <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </li>
 
-      <li class="row course" id="c-prompting">
-        <div class="head"><span class="n">02</span><h3>prompting and checking</h3></div>
-        <p><span class="label">For: </span>people who already use AI and want results they can rely on.</p>
-        <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>Half day</dd></div>
-          <div><dt>Group</dt><dd>Up to 12</dd></div>
-          <div><dt>Format</dt><dd>In person or online</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Available</dt><dd>Spring 2027</dd></div>
-        </dl>
-        <a class="ask" href="[FORM LINK]" aria-label="Register interest: prompting and checking">Register interest</a>
+      <li class="course" id="c-prompting">
+        <div class="txt">
+          <p class="n">02</p>
+          <h3>prompting and checking</h3>
+          <p><span class="label">For: </span>people who already use AI and want results they can rely on.</p>
+          <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
+        </div>
+        <div class="spec">
+          <dl class="facts">
+            <div><dt>Length</dt><dd>Half day</dd></div>
+            <div><dt>Group</dt><dd>Up to 12</dd></div>
+            <div><dt>Format</dt><dd>In person or online</dd></div>
+            <div><dt>Language</dt><dd>English or Italian</dd></div>
+            <div><dt>Available</dt><dd>Spring 2027</dd></div>
+          </dl>
+          <a class="btn" href="[FORM LINK]" aria-label="Register interest: prompting and checking">Register interest <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </li>
 
-      <li class="row course" id="c-data">
-        <div class="head"><span class="n">03</span><h3>working with data without being an analyst</h3></div>
-        <p><span class="label">For: </span>people who read dashboards, interpret reports, question numbers or write summaries based on them.</p>
-        <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>Half day</dd></div>
-          <div><dt>Group</dt><dd>Please enquire</dd></div>
-          <div><dt>Format</dt><dd>In person or online</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Available</dt><dd>Spring 2027</dd></div>
-        </dl>
-        <a class="ask" href="[FORM LINK]" aria-label="Register interest: working with data without being an analyst">Register interest</a>
+      <li class="course" id="c-data">
+        <div class="txt">
+          <p class="n">03</p>
+          <h3>working with data without being an analyst</h3>
+          <p><span class="label">For: </span>people who read dashboards, interpret reports, question numbers or write summaries based on them.</p>
+          <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
+        </div>
+        <div class="spec">
+          <dl class="facts">
+            <div><dt>Length</dt><dd>Half day</dd></div>
+            <div><dt>Group</dt><dd>Please enquire</dd></div>
+            <div><dt>Format</dt><dd>In person or online</dd></div>
+            <div><dt>Language</dt><dd>English or Italian</dd></div>
+            <div><dt>Available</dt><dd>Spring 2027</dd></div>
+          </dl>
+          <a class="btn" href="[FORM LINK]" aria-label="Register interest: working with data without being an analyst">Register interest <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </li>
 
-      <li class="row course" id="c-policy">
-        <div class="head"><span class="n">04</span><h3>AI policy and governance for managers</h3></div>
-        <p><span class="label">For: </span>leadership and compliance teams.</p>
-        <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>One day</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Available</dt><dd>Spring 2027</dd></div>
-        </dl>
-        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI policy and governance for managers">Register interest</a>
+      <li class="course" id="c-policy">
+        <div class="txt">
+          <p class="n">04</p>
+          <h3>AI policy and governance for managers</h3>
+          <p><span class="label">For: </span>leadership and compliance teams.</p>
+          <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
+        </div>
+        <div class="spec">
+          <dl class="facts">
+            <div><dt>Length</dt><dd>One day</dd></div>
+            <div><dt>Language</dt><dd>English or Italian</dd></div>
+            <div><dt>Available</dt><dd>Spring 2027</dd></div>
+          </dl>
+          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI policy and governance for managers">Register interest <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </li>
 
-      <li class="row course" id="c-roles">
-        <div class="head"><span class="n">05</span><h3>AI for HR and recruitment</h3></div>
-        <p><span class="label">For: </span>HR and recruitment teams. There are also versions for marketing and communications, finance and operations, and client-facing teams.</p>
-        <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>Half day</dd></div>
-          <div><dt>Group</dt><dd>Up to 12</dd></div>
-          <div><dt>Format</dt><dd>In person or online</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Available</dt><dd>Spring 2027</dd></div>
-        </dl>
-        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI for HR and recruitment">Register interest</a>
+      <li class="course" id="c-roles">
+        <div class="txt">
+          <p class="n">05</p>
+          <h3>AI for HR and recruitment</h3>
+          <p><span class="label">For: </span>HR and recruitment teams. There are also versions for marketing and communications, finance and operations, and client-facing teams.</p>
+          <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
+        </div>
+        <div class="spec">
+          <dl class="facts">
+            <div><dt>Length</dt><dd>Half day</dd></div>
+            <div><dt>Group</dt><dd>Up to 12</dd></div>
+            <div><dt>Format</dt><dd>In person or online</dd></div>
+            <div><dt>Language</dt><dd>English or Italian</dd></div>
+            <div><dt>Available</dt><dd>Spring 2027</dd></div>
+          </dl>
+          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI for HR and recruitment">Register interest <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </li>
 
     </ol>
