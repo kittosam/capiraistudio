@@ -175,16 +175,20 @@ html:not(.js) #stage{display:none}
 @media (max-width:52rem){.ticket{grid-template-columns:1fr}.ticket .stub{border-left:0;border-top:3px dashed rgba(10,13,12,.4)}}
 
 /* what I do: statement left, four tiles right */
-.what{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s6);align-items:center}
-.tiles{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
-.tiles li{background:rgba(242,247,244,.07);border-radius:var(--r);padding:var(--s4)}
-.tiles h3{font-size:var(--t-small);font-weight:600;letter-spacing:0;color:var(--mint)}
-.tiles p{margin-top:var(--s1);font-size:var(--t-small)}
+.what{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s6) var(--s7);align-items:center}
+.tiles{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s5)}
+.tiles li::before{content:"";display:block;width:2rem;height:3px;border-radius:2px;background:var(--mint);margin-bottom:var(--s3)}
+.tiles h3{font-size:var(--t-body);font-weight:600;letter-spacing:0;color:var(--mint)}
+.tiles p{margin-top:var(--s1);color:var(--on-dark-2)}
 @media (max-width:60rem){.what{grid-template-columns:1fr}}
 @media (max-width:30rem){.tiles{grid-template-columns:1fr}}
 
 /* courses: choose a situation, see the course that fits */
-.chooser{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:var(--s5);margin-top:var(--s6);align-items:start}
+.chooser{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:var(--s5);margin-top:var(--s6);align-items:stretch}
+.js .panels{display:flex;flex-direction:column}
+.js .course{display:flex;flex-direction:column;flex:1}
+.js .course .spec{margin-top:auto}
+.js .course + .course{margin-top:0}
 .situations{display:flex;flex-direction:column;gap:var(--s2)}
 .situation{font:inherit;font-size:var(--t-body);font-weight:500;line-height:1.4;text-align:left;color:var(--ink);background:rgba(14,42,43,.06);
   border:0;border-radius:1rem;padding:var(--s3) 1.25rem;cursor:pointer;transition:background var(--quick) var(--ease)}
