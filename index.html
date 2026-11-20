@@ -23,75 +23,84 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Schibsted+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!--
   HOW TO EDIT THIS FILE
   - Everything you need to fill in before going live is marked class="todo".
     Search the file for "todo" to find each one.
   - Colours, fonts and spacing are the tokens in :root just below.
-  - Every section below the ticker uses the same "ledger" layout:
-      <section class="sec s-COLOUR">
-        <div class="wrap ledger">
-          <div class="rail"> number, heading, purpose, next-step link </div>
-          <div class="rows"> one .row per item </div>
-        </div>
-      </section>
+  - Each section has its own layout, but they share one type scale (--t-*),
+    one font (Instrument Sans) and the colour tokens.
+  - Courses: the situation buttons are tabs. Each course is an <article>
+    with the id the tab points to. Without JavaScript every course shows.
   - The Writing section is commented out until the first article exists.
-  - Lowercase headings are typed in lowercase. Never use text-transform:
-    it would also lowercase "AI" and "I".
+  - Never use text-transform on headings: it would also change "AI" and "I".
 -->
 <style>
 :root{
-  /* colour */
+  /* colour (unchanged) */
   --black:#0a0d0c;      /* hero */
   --mint:#35e39b;       /* ticker, particles, accents on dark. never text on light */
-  --pine:#0e2a2b;       /* first section after the ticker; headings on light */
+  --pine:#0e2a2b;       /* dark sections and panels */
   --mint-pale:#e4f3ec;
   --paper:#f7f7f2;
   --sand:#f3eadb;
   --cream:#fbf5ec;      /* contact and footer: the warm end of the page */
   --ink:#15201f;        /* body text on light */
-  --muted:#4a5755;      /* dates, metadata (6.3:1 or better on every light background) */
-  --teal:#0b6656;       /* links and buttons on light */
+  --muted:#4a5755;      /* secondary text (6.3:1 or better on every light background) */
+  --teal:#0b6656;       /* links and small labels on light */
   --on-dark:#f2f7f4;
   --on-dark-2:#b9ccc6;
   --hero-grey:#a6afac;
 
-  /* type */
-  --head:'Schibsted Grotesk',system-ui,sans-serif;
-  --body:'Atkinson Hyperlegible Next',system-ui,sans-serif;
+  /* type: one family, one scale for every section */
+  --font:'Instrument Sans',system-ui,sans-serif;
+  --t-h1:clamp(2rem,1.2rem + 3.2vw,3.75rem);
+  --t-h2:clamp(2rem,1.4rem + 2.4vw,3.25rem);
+  --t-h3:clamp(1.25rem,1.1rem + .6vw,1.5rem);
+  --t-lead:clamp(1.1875rem,1.1rem + .4vw,1.375rem);
+  --t-body:1.0625rem;
+  --t-small:.9375rem;
 
   /* spacing scale: 4 8 16 24 32 48 64 96 128 */
   --s1:.25rem;--s2:.5rem;--s3:1rem;--s4:1.5rem;--s5:2rem;--s6:3rem;--s7:4rem;--s8:6rem;--s9:8rem;
   --gutter:clamp(1rem,4vw,1.5rem);
   --max:72rem;
+  --r:1.25rem;
 
   /* motion */
   --quick:.15s;--move:.2s;--ease:cubic-bezier(.2,.7,.2,1);
 
   /* defaults for light sections (overridden per section) */
-  --bg:var(--paper);--fg:var(--ink);--fg2:var(--muted);--link:var(--teal);
-  --rule:rgba(21,32,31,.2);--focus:var(--pine);--btn-bg:var(--teal);--btn-fg:#fff;
+  --bg:var(--paper);--fg:var(--ink);--fg2:var(--muted);--link:var(--teal);--accent:var(--teal);
+  --focus:var(--pine);--btn-bg:var(--pine);--btn-fg:var(--mint);
   interpolate-size:allow-keywords;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:var(--s4);-webkit-text-size-adjust:100%}
-body{font-family:var(--body);font-size:1.125rem;line-height:1.6;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);font-size:var(--t-body);line-height:1.6;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 
-h1,h2,h3{font-family:var(--head);font-weight:700;letter-spacing:-.02em;color:var(--fg)}
-h2{font-size:clamp(1.875rem,1.3rem + 2.4vw,2.75rem);line-height:1.15}
-h3{font-size:clamp(1.375rem,1.2rem + .6vw,1.625rem);line-height:1.3}
-p,li,dd{max-width:40rem}
+h1,h2,h3{font-weight:500;letter-spacing:-.025em;line-height:1.1;color:var(--fg);text-wrap:balance}
+h1{font-size:var(--t-h1);font-weight:600}
+h2{font-size:var(--t-h2)}
+h3{font-size:var(--t-h3);line-height:1.25;letter-spacing:-.015em}
+p,li,dd{max-width:42rem}
+.lead{font-size:var(--t-lead);line-height:1.5}
+.small{font-size:var(--t-small)}
+.eyebrow{font-size:var(--t-small);font-weight:600;color:var(--accent)}
+.muted{color:var(--fg2)}
 
 a{color:var(--link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;transition:text-decoration-thickness var(--quick) var(--ease)}
 a:hover,a:focus-visible{text-decoration-thickness:3px}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:2px}
 
-.btn{display:inline-flex;align-items:center;gap:var(--s2);min-height:3rem;padding:.75rem 1.5rem;border-radius:3rem;
-  background:var(--btn-bg);color:var(--btn-fg);font-family:var(--head);font-weight:700;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:var(--s2);min-height:3rem;padding:.7rem 1.4rem;border-radius:3rem;
+  background:var(--btn-bg);color:var(--btn-fg);font-weight:600;font-size:1rem;text-decoration:none;white-space:nowrap}
 .btn:hover,.btn:focus-visible{text-decoration:underline;text-decoration-thickness:2px}
+.btn .arr{transition:transform var(--move) var(--ease)}
+.btn:hover .arr,.btn:focus-visible .arr{transform:translateX(4px)}
 
 .skip{position:absolute;left:var(--s3);top:-10rem;z-index:50;background:var(--mint);color:var(--black);padding:var(--s2) var(--s3);font-weight:700}
 .skip:focus{top:var(--s3)}
@@ -99,13 +108,13 @@ a:hover,a:focus-visible{text-decoration-thickness:3px}
 /* reviewer marks: remove each one when the real content is in */
 .todo{background:transparent;color:inherit;outline:2px dashed currentColor;outline-offset:2px;padding:0 .25em;font-weight:700}
 
-/* ================= HERO (lifted from the current site) ================= */
+/* ================= HERO (lifted from the original site) ================= */
 .hero{min-height:100svh;min-height:max(100svh,32rem);position:relative;overflow:hidden;background:var(--black);
   display:flex;flex-direction:column;--fg:var(--on-dark);--link:var(--mint);--focus:var(--mint)}
 #stage{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;cursor:crosshair}
 .nav{position:relative;z-index:3}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);min-height:4.4rem;color:#fff}
-.brand{font-family:var(--head);font-weight:800;font-size:1.125rem;letter-spacing:-.04em;color:#fff;text-decoration:none}
+.brand{font-weight:700;font-size:1.125rem;letter-spacing:-.04em;color:#fff;text-decoration:none}
 .brand b{color:var(--mint)}
 .navlinks{display:flex;align-items:center;gap:var(--s4);list-style:none;font-size:1rem}
 .navlinks a{color:var(--on-dark);text-decoration-color:transparent}
@@ -117,154 +126,177 @@ a:hover,a:focus-visible{text-decoration-thickness:3px}
   .navlinks .menu{display:list-item;list-style:none}
 }
 .statictitle{position:relative;z-index:2;flex:1;display:flex;align-items:center;color:#fff;
-  font-family:var(--head);font-size:clamp(3rem,12vw,9rem);font-weight:800;letter-spacing:-.06em;line-height:1}
+  font-size:clamp(3rem,12vw,9rem);font-weight:700;letter-spacing:-.06em;line-height:1}
 .js .statictitle{visibility:hidden}
 html:not(.js) #stage{display:none}
 .heroui{position:relative;z-index:3;margin-top:auto;padding:var(--s7) 0 var(--s6);pointer-events:none;
   background:linear-gradient(to bottom,rgba(10,13,12,0),rgba(10,13,12,.85) 45%)}
 .heroui .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s5);flex-wrap:wrap}
-.heroui h1{font-size:clamp(1.75rem,1.1rem + 3vw,3.75rem);line-height:1.1;max-width:18ch;color:#fff}
-.heroui p{margin-top:var(--s3);max-width:34ch;color:var(--hero-grey);font-size:1.125rem}
+.heroui h1{max-width:18ch;color:#fff}
+.heroui p{margin-top:var(--s3);max-width:34ch;color:var(--hero-grey);font-size:var(--t-lead)}
 .heroui .txt,.heroui .btn{opacity:0;animation:fade 1.2s ease 1.4s forwards}
 .heroui .btn{pointer-events:auto;--btn-bg:var(--mint);--btn-fg:var(--black);animation-delay:1.6s}
 @keyframes fade{to{opacity:1}}
 
-/* ================= TICKER (lifted from the current site) ================= */
+/* ================= TICKER (lifted from the original site) ================= */
 .tick{display:flex;align-items:center;background:var(--mint);color:var(--black);position:relative;z-index:5;--focus:var(--black)}
 .tick__win{flex:1;overflow:hidden;white-space:nowrap;padding:.85rem 0}
 .tick__t{display:inline-flex;animation:run 28s linear infinite;will-change:transform}
 .tick__set{display:inline-flex;gap:2.2rem;padding-right:2.2rem;list-style:none}
-.tick__set li{font-family:var(--head);font-size:1rem;font-weight:700;max-width:none}
+.tick__set li{font-size:1rem;font-weight:600;max-width:none}
 .tick__set li::after{content:"·";content:"·" / "";margin-left:2.2rem}
 .tick.paused .tick__t{animation-play-state:paused}
 .tick__btn{display:none;flex:none;margin:0 var(--gutter) 0 var(--s3);min-height:2.25rem;padding:0 var(--s3);border:2px solid var(--black);border-radius:2rem;
-  background:var(--mint);color:var(--black);font:700 .9375rem/1 var(--head);cursor:pointer}
+  background:var(--mint);color:var(--black);font:600 .9375rem/1 var(--font);cursor:pointer}
 .tick__btn:hover{background:var(--black);color:var(--mint)}
 .js .tick__btn{display:inline-block}
 @keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ================= LEDGER: the one repeating pattern ================= */
-.sec{background:var(--bg);color:var(--fg);padding:clamp(4rem,10vw,8rem) 0}
-.sec + .sec.same{border-top:1px solid var(--rule)}
-.s-pine{--bg:var(--pine);--fg:var(--on-dark);--fg2:var(--on-dark-2);--link:var(--mint);--rule:rgba(242,247,244,.22);--focus:var(--mint);--btn-bg:var(--mint);--btn-fg:var(--black)}
+/* ================= SECTIONS ================= */
+.sec{background:var(--bg);color:var(--fg);padding:clamp(4rem,9vw,7rem) 0}
+.s-pine{--bg:var(--pine);--fg:var(--on-dark);--fg2:var(--on-dark-2);--link:var(--mint);--accent:var(--mint);--focus:var(--mint);--btn-bg:var(--mint);--btn-fg:var(--black)}
 .s-mint{--bg:var(--mint-pale)}
 .s-paper{--bg:var(--paper)}
 .s-sand{--bg:var(--sand)}
 .s-cream{--bg:var(--cream)}
+.head{max-width:46rem}
+.head > * + *{margin-top:var(--s3)}
 
-.ledger{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s5) clamp(2rem,5vw,4rem);align-items:start}
-.rail .num{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--fg2)}
-.rail h2{margin-top:var(--s2)}
-.rail p{margin-top:var(--s3);color:var(--fg2)}
-.rail .next{display:inline-block;margin-top:var(--s4);font-weight:700}
-@media (min-width:52.01rem) and (min-height:40rem){.rail{position:sticky;top:var(--s5)}}
-@media (max-width:52rem){.ledger{grid-template-columns:1fr}}
+/* free taster: a mint ticket */
+.taster{padding-bottom:0}
+.ticket{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);background:var(--mint);color:var(--black);border-radius:var(--r);overflow:hidden;
+  --fg:var(--black);--focus:var(--black);--accent:var(--black)}
+.ticket .main,.ticket .stub{padding:clamp(1.5rem,4vw,3rem)}
+.ticket .main > * + *{margin-top:var(--s3)}
+.ticket .stub{border-left:3px dashed rgba(10,13,12,.4);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)}
+.ticket .tags{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.ticket .tags li{border:1.5px solid var(--black);border-radius:2rem;padding:.15rem .8rem;font-weight:600;font-size:var(--t-small)}
+.ticket .btn{--btn-bg:var(--black);--btn-fg:var(--mint);align-self:flex-start}
+@media (max-width:52rem){.ticket{grid-template-columns:1fr}.ticket .stub{border-left:0;border-top:3px dashed rgba(10,13,12,.4)}}
 
-.rows{list-style:none;border-top:1px solid var(--rule)}
-.row{border-bottom:1px solid var(--rule);padding:var(--s4) 0}
-.row > * + *{margin-top:var(--s3)}
-.lead{font-size:clamp(1.25rem,1.15rem + .4vw,1.375rem);line-height:1.5}
-.label{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--fg2)}
-.row ul{padding-left:1.25rem}
-.row ul li + li{margin-top:var(--s2)}
+/* what I do: statement left, four tiles right */
+.what{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s6);align-items:center}
+.tiles{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.tiles li{background:rgba(242,247,244,.07);border-radius:var(--r);padding:var(--s4)}
+.tiles h3{font-size:var(--t-small);font-weight:600;letter-spacing:0;color:var(--mint)}
+.tiles p{margin-top:var(--s1);font-size:var(--t-small)}
+@media (max-width:60rem){.what{grid-template-columns:1fr}}
+@media (max-width:30rem){.tiles{grid-template-columns:1fr}}
 
-/* what I do: term / detail rows */
-.pairs .row{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr);gap:var(--s2) var(--s4)}
-.pairs .row > * + *{margin-top:0}
-.pairs dt{font-family:var(--head);font-weight:700;color:var(--fg2)}
-@media (max-width:36rem){.pairs .row{grid-template-columns:1fr}}
-
-/* where teams start: situation → course */
-.sit{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--s2) var(--s4);align-items:baseline}
-.sit > * + *{margin-top:0}
-.sit q{quotes:"\201C" "\201D";font-size:1.1875rem}
-.sit a{font-weight:700}
-.sit a::before{content:"→ ";content:"→ " / "";text-decoration:none;display:inline}
-@media (max-width:36rem){.sit{grid-template-columns:1fr}}
-
-/* courses: heading above, full-width rows; text on white, details in a dark green panel */
-.stacked .rail{max-width:40rem;position:static}
-.stacked .courses{margin-top:var(--s6)}
-.courses{list-style:none;display:grid;gap:var(--s4)}
-.course{max-width:none;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);background:#fff;border-radius:1rem;overflow:hidden;scroll-margin-top:var(--s4)}
+/* courses: choose a situation, see the course that fits */
+.chooser{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:var(--s5);margin-top:var(--s6);align-items:start}
+.situations{display:flex;flex-direction:column;gap:var(--s2)}
+.situation{font:inherit;font-size:var(--t-body);font-weight:500;line-height:1.4;text-align:left;color:var(--ink);background:rgba(14,42,43,.06);
+  border:0;border-radius:1rem;padding:var(--s3) 1.25rem;cursor:pointer;transition:background var(--quick) var(--ease)}
+.situation:hover{background:rgba(14,42,43,.12)}
+.situation[aria-selected=true]{background:var(--pine);color:var(--on-dark)}
+.course{background:#fff;border-radius:var(--r);overflow:hidden;scroll-margin-top:var(--s4)}
+.course + .course{margin-top:var(--s4)}
+.js .course[hidden]{display:none}
+html:not(.js) .course[hidden]{display:block}   /* without JavaScript, every course shows */
 .course .txt{padding:clamp(1.5rem,3vw,2rem)}
 .course .txt > * + *{margin-top:var(--s3)}
-.course .n{font-family:var(--head);font-weight:800;font-size:1rem;color:var(--teal)}
-.course .txt h3{margin-top:var(--s1)}
-.course .spec{background:var(--pine);color:var(--on-dark);padding:clamp(1.5rem,3vw,2rem);display:flex;flex-direction:column;gap:var(--s4);
-  --fg2:var(--on-dark-2);--focus:var(--mint)}
-.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s2) var(--s3);font-size:1rem;line-height:1.35}
-.facts div{display:contents}
-.facts dt{color:var(--on-dark-2)}
-.facts dd{font-family:var(--head);font-weight:700}
-.course .spec .btn{--btn-bg:var(--mint);--btn-fg:var(--black);margin-top:auto;align-self:flex-start;min-height:2.75rem;padding:.5rem 1.2rem;white-space:nowrap}
-.btn .arr{transition:transform var(--move) var(--ease)}
-.btn:hover .arr,.btn:focus-visible .arr{transform:translateX(4px)}
-.course:target{outline:4px solid var(--pine);outline-offset:4px}
-@media (max-width:60rem){.course{grid-template-columns:1fr}}
+.course .n{font-size:var(--t-small);font-weight:600;color:var(--teal)}
+.course .n + h3{margin-top:var(--s1)}
+.course .for{font-size:var(--t-small);color:var(--muted)}
+.course .for b{color:var(--ink)}
+.course .if{font-style:italic;color:var(--muted)}
+.js .course .if{display:none}   /* the situation shows on the tab instead */
+.spec{background:var(--pine);color:var(--on-dark);padding:var(--s4) clamp(1.5rem,3vw,2rem);display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;justify-content:space-between;--focus:var(--mint)}
+.spec ul{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.spec li{border:1px solid rgba(242,247,244,.35);border-radius:2rem;padding:.15rem .75rem;font-size:var(--t-small)}
+.spec .btn{--btn-bg:var(--mint);--btn-fg:var(--black)}
+html:not(.js) .situations{display:none}
+html:not(.js) .chooser{grid-template-columns:1fr}
+@media (max-width:60rem){
+  .chooser{grid-template-columns:1fr;gap:var(--s4)}
+  .situations{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--s2)}
+  .situation{flex:0 0 min(18rem,80%);scroll-snap-align:start}
+}
 
-/* disclosures (courses, questions) */
-details > summary{display:inline-flex;align-items:center;gap:var(--s2);min-height:2.75rem;cursor:pointer;list-style:none;color:var(--link);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
+/* how I work: steps on a line, then prices and the founding offer */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:var(--s6);position:relative;counter-reset:step}
+.steps::before{content:"";position:absolute;top:1.125rem;left:1.125rem;right:12%;height:2px;background:var(--pine);opacity:.2}
+.steps li{counter-increment:step;padding-right:var(--s4);position:relative}
+.steps li::before{content:counter(step);position:relative;display:grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;
+  background:var(--pine);color:var(--mint);font-weight:600;font-size:var(--t-small);margin-bottom:var(--s3)}
+.steps h3{font-size:var(--t-body);font-weight:600;letter-spacing:0}
+.steps p{margin-top:var(--s1);font-size:var(--t-small);color:var(--muted)}
+.room{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin-top:var(--s6)}
+.room h3{font-size:var(--t-body);font-weight:600;letter-spacing:0;margin-right:var(--s2)}
+.room ul{list-style:none;display:contents}
+.room li{background:#fff;border-radius:2rem;padding:.3rem .85rem;font-size:var(--t-small)}
+.money{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--s3);margin-top:var(--s6)}
+.prices{background:var(--pine);color:var(--on-dark);border-radius:var(--r);padding:clamp(1.5rem,3vw,2rem);scroll-margin-top:var(--s4)}
+.prices h3{font-size:var(--t-body);font-weight:600;letter-spacing:0;color:var(--mint)}
+.prices dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);margin-top:var(--s4)}
+.prices dl div{display:flex;flex-direction:column-reverse;justify-content:flex-end}
+.prices dd{font-size:2rem;font-weight:500;letter-spacing:-.03em;line-height:1.1;color:#fff}
+.prices dt{margin-top:var(--s1);font-size:var(--t-small);color:var(--on-dark-2)}
+.prices .note{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid rgba(242,247,244,.15);font-size:var(--t-small);color:var(--on-dark-2)}
+.prices .note + .note{border:0;padding:0;margin-top:var(--s2)}
+.founding{background:var(--mint);color:var(--black);border-radius:var(--r);padding:clamp(1.5rem,3vw,2rem);display:flex;flex-direction:column;gap:var(--s3);--focus:var(--black);--fg:var(--black)}
+.founding h3{font-weight:600}
+.founding p{font-size:var(--t-small)}
+.founding .btn{--btn-bg:var(--black);--btn-fg:var(--mint);margin-top:auto;align-self:flex-start}
+@media (max-width:60rem){
+  .steps{grid-template-columns:1fr;gap:var(--s4)}
+  .steps::before{top:1rem;bottom:1rem;left:1.125rem;right:auto;width:2px;height:auto}
+  .steps li{display:grid;grid-template-columns:2.25rem 1fr;gap:0 var(--s3);padding:0}
+  .steps li::before{grid-row:span 2;margin:0}
+  .money{grid-template-columns:1fr}
+}
+@media (max-width:36rem){.prices dl{grid-template-columns:1fr}}
+
+/* about: portrait and story, then credentials as cards */
+.about{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:var(--s5) var(--s6);margin-top:var(--s6);align-items:start}
+.portrait{width:100%;border-radius:var(--r)}
+.story > * + *{margin-top:var(--s3)}
+.story h3{margin-top:var(--s5)}
+.creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3);margin-top:var(--s6)}
+.cred{background:#fff;border-radius:var(--r);padding:var(--s4)}
+.cred.tall{grid-row:span 3}
+.cred h3{font-size:var(--t-small);font-weight:600;letter-spacing:0;color:var(--teal)}
+.cred > :not(h3){margin-top:var(--s2);font-size:var(--t-small)}
+.cred ul{padding-left:1.1rem}
+.cred li + li{margin-top:var(--s2)}
+@media (max-width:52rem){.about,.creds{grid-template-columns:1fr}.portrait{max-width:14rem}.cred.tall{grid-row:auto}}
+
+/* questions: heading left, answers right */
+.qa{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:var(--s5) var(--s6);align-items:start}
+@media (min-width:60.01rem) and (min-height:40rem){.qa .head{position:sticky;top:var(--s5)}}
+.faq{list-style:none;display:grid;gap:var(--s2)}
+.faq li{background:#fff;border-radius:1rem;padding:var(--s2) var(--s4)}
+details > summary{display:flex;align-items:flex-start;gap:var(--s3);min-height:2.75rem;padding:.6rem 0;cursor:pointer;list-style:none}
 details > summary::-webkit-details-marker{display:none}
-details > summary::before{content:"";flex:none;width:.5em;height:.5em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform var(--move) var(--ease)}
+details > summary::before{content:"";flex:none;width:.55em;height:.55em;margin-top:.55em;border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(-45deg);transition:transform var(--move) var(--ease)}
 details[open] > summary::before{transform:rotate(45deg) translate(-2px,-2px)}
-details > summary:hover{text-decoration-thickness:3px}
-details > :not(summary){margin-top:var(--s3)}
+details > :not(summary){padding:0 0 var(--s3) calc(.55em + var(--s3) + 2px)}
 @supports selector(::details-content){
   details::details-content{block-size:0;overflow:hidden;transition:block-size var(--move) var(--ease),content-visibility var(--move) allow-discrete}
   details[open]::details-content{block-size:auto}
 }
-.faq summary{color:var(--fg);text-decoration:none;align-items:flex-start;padding-top:.15rem}
-.faq summary::before{margin-top:.55em}
-.faq summary h3{font-size:clamp(1.25rem,1.15rem + .4vw,1.375rem)}
+.faq h3{font-size:var(--t-body);font-weight:600;letter-spacing:0;line-height:1.5}
 .faq summary:hover h3,.faq summary:focus-visible h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.2em}
-.faq details > :not(summary){padding-left:calc(.5em + var(--s2) + 2px)}
+@media (max-width:60rem){.qa{grid-template-columns:1fr}}
 
-/* free taster: a mint ticket on the dark green */
-.ticket{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);background:var(--mint);color:var(--black);border-radius:1.25rem;overflow:hidden;
-  --fg:var(--black);--focus:var(--black)}
-.ticket .main,.ticket .stub{padding:clamp(1.5rem,4vw,3rem)}
-.ticket .eyebrow{font-family:var(--head);font-weight:800;font-size:.875rem;letter-spacing:.08em}
-.ticket h2{margin-top:var(--s3)}
-.ticket .main p + p{margin-top:var(--s3)}
-.ticket .main .eyebrow + h2 + p{margin-top:var(--s3)}
-.ticket .stub{border-left:3px dashed rgba(10,13,12,.4);display:flex;flex-direction:column;gap:var(--s3)}
-.ticket .when{font-family:var(--head);font-weight:800;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);line-height:1.15}
-.ticket .tags{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s2)}
-.ticket .tags li{border:1.5px solid var(--black);border-radius:2rem;padding:.1rem .75rem;font-family:var(--head);font-weight:700;font-size:.9375rem}
-.ticket .btn{--btn-bg:var(--black);--btn-fg:var(--mint);margin-top:auto;align-self:flex-start}
-.ticket .small{font-size:.9375rem}
-@media (max-width:52rem){.ticket{grid-template-columns:1fr}.ticket .stub{border-left:0;border-top:3px dashed rgba(10,13,12,.4)}}
-
-/* how I work */
-.steps{counter-reset:step}
-.steps .row{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:var(--s1) var(--s3)}
-.steps .row > * + *{margin-top:0}
-.steps .row::before{counter-increment:step;content:counter(step);grid-row:span 2;font-family:var(--head);font-weight:800;font-size:1.5rem;line-height:1.3;color:var(--fg2)}
-.steps h3,.steps p{grid-column:2}
-
-.price-list div{display:flex;justify-content:space-between;gap:var(--s4);padding:var(--s2) 0;border-bottom:1px solid var(--rule)}
-.price-list div:first-child{border-top:1px solid var(--rule)}
-.price-list dd{font-weight:700;white-space:nowrap;text-align:right}
-/* Atkinson draws a slashed zero; set figures in the heading font so prices read cleanly */
-.price-list dd{font-family:var(--head)}
-@media (max-width:30rem){.price-list div{flex-direction:column;gap:0}.price-list dd{text-align:left}}
-
-/* about */
-.portrait{width:min(100%,14rem);border-radius:.75rem}
-.facts-list .row{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr);gap:var(--s2) var(--s4)}
-.facts-list .row > * + *{margin-top:0}
-.facts-list dt{color:var(--fg2)}
-@media (max-width:36rem){.facts-list .row{grid-template-columns:1fr}}
-
-/* contact */
-.mail{font-family:var(--head);font-weight:800;font-size:clamp(1.25rem,.9rem + 2.2vw,2.25rem);letter-spacing:-.03em;color:var(--pine);word-break:break-word;text-decoration-thickness:2px}
+/* contact: the email, large, then three short notes */
+.contact{text-align:center}
+.contact .head{margin:0 auto}
+.mail{display:inline-block;margin-top:var(--s5);font-weight:600;font-size:clamp(1.375rem,.9rem + 2.6vw,2.75rem);letter-spacing:-.03em;color:var(--pine);word-break:break-word;text-decoration-thickness:2px}
 .mail:hover,.mail:focus-visible{text-decoration-thickness:4px}
+.contact .also{margin:var(--s3) auto 0;color:var(--muted)}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);margin-top:var(--s6);text-align:left}
+.notes > div{background:#fff;border-radius:var(--r);padding:var(--s4)}
+.notes h3{font-size:var(--t-small);font-weight:600;letter-spacing:0;color:var(--teal)}
+.notes > div > :not(h3){margin-top:var(--s2);font-size:var(--t-small)}
+.notes ul{padding-left:1.1rem}
+@media (max-width:52rem){.notes{grid-template-columns:1fr}}
 
 /* footer */
-footer{background:var(--cream);color:var(--ink);border-top:1px solid var(--rule);padding:var(--s6) 0 var(--s7);font-size:1rem}
+footer{background:var(--cream);color:var(--ink);border-top:1px solid rgba(21,32,31,.12);padding:var(--s6) 0 var(--s7);font-size:var(--t-small)}
 footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:var(--s5)}
-footer h2{font-size:1.125rem;margin-bottom:var(--s3)}
+footer h2{font-size:1rem;font-weight:600;letter-spacing:0;margin-bottom:var(--s3)}
 footer ul{list-style:none}
 footer li + li{margin-top:var(--s2)}
 footer p + p{margin-top:var(--s3)}
@@ -330,352 +362,287 @@ footer .small{color:var(--muted)}
 <main id="main">
 
 <!-- FREE TASTER ===================================================== -->
-<section class="sec s-pine" id="taster" aria-labelledby="taster-h">
+<section class="sec s-pine taster" id="taster" aria-labelledby="taster-h">
   <div class="wrap">
     <div class="ticket">
       <div class="main">
-        <p class="eyebrow">FREE TASTER · ONLINE</p>
+        <p class="eyebrow">Free taster · online</p>
         <h2 id="taster-h">Free taster: AI, who's behind it and how to use it well</h2>
         <p>A 60-minute online session for people who use AI at work, or are about to, and want to understand it better. We look at how generative AI works in plain words, who builds it and who pays for it, including the data, the low-paid work and the energy behind it, and who regulates it in the UK and the EU. Then we try it on a real work task and look at how to check what comes back.</p>
       </div>
       <div class="stub">
-        <p class="when"><mark class="todo">[DATE AND TIME]</mark></p>
         <ul class="tags" aria-label="Details">
           <li>Online</li><li>60 minutes</li><li>Free</li><li>Up to 20 places</li>
         </ul>
-        <a class="btn" href="[FORM LINK]">Register for the taster <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="[FORM LINK]">Register your interest <span class="arr" aria-hidden="true">→</span></a>
         <p class="small">The form asks a few questions about your role and what you'd like to learn, so I can shape the session around the people coming.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 01 WHAT I DO ====================================================== -->
+<!-- WHAT I DO ========================================================= -->
 <section class="sec s-pine" id="what" aria-labelledby="what-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">01</p>
-      <h2 id="what-h">what I do</h2>
-      <p>Plain, practical training on AI, built around the work your team already does.</p>
-      <a class="next" href="#start">Find the right course</a>
+  <div class="wrap what">
+    <div class="head">
+      <p class="eyebrow">What I do</p>
+      <h2 id="what-h">Plain, practical training on AI, built around the work your team already does.</h2>
+      <p class="lead muted">Most people are already using AI tools at work, and most of them learned by guessing. I teach teams to use them well: to ask properly, to check what comes back, and to know what must never go in. You don't need a technical background, and there's no hype.</p>
     </div>
-    <dl class="rows pairs">
-      <div class="row">
-        <dt>what</dt>
-        <dd class="lead">Most people are already using AI tools at work, and most of them learned by guessing. I teach teams to use them well: to ask properly, to check what comes back, and to know what must never go in. You don't need a technical background, and there's no hype.</dd>
-      </div>
-      <div class="row">
-        <dt>who for</dt>
-        <dd>HR and people teams, public sector teams, charities and other organisations that work with the public. Most of the people I train don't work in technology, and some are uneasy about AI. That's who the workshops are built for.</dd>
-      </div>
-      <div class="row">
-        <dt>where</dt>
-        <dd>In person in London, on site anywhere else, or online.</dd>
-      </div>
-      <div class="row">
-        <dt>languages</dt>
-        <dd>English or Italian.</dd>
-      </div>
-      <div class="row">
-        <dt>afterwards</dt>
-        <dd>People know what these tools are good at, where they go wrong, and what should never be put into them.</dd>
-      </div>
-    </dl>
-  </div>
-</section>
-
-<!-- 02 WHERE TEAMS START ============================================== -->
-<section class="sec s-mint" id="start" aria-labelledby="start-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">02</p>
-      <h2 id="start-h">where teams usually start</h2>
-      <p>Find the situation that sounds most like yours. Each one points to the course that fits it.</p>
-      <a class="next" href="#courses">See all five courses</a>
-    </div>
-    <ul class="rows">
-      <li class="row sit"><q>People are already using ChatGPT, and nobody has said what's allowed.</q><a href="#c-policy">AI policy and governance for managers</a></li>
-      <li class="row sit"><q>Half the team is curious, half is worried, and a few have never tried it.</q><a href="#c-foundations">AI foundations for teams</a></li>
-      <li class="row sit"><q>People use AI every day, but nobody checks what it gives them.</q><a href="#c-prompting">Prompting and checking</a></li>
-      <li class="row sit"><q>People make decisions from dashboards and reports they don't fully trust.</q><a href="#c-data">Working with data without being an analyst</a></li>
-      <li class="row sit"><q>Our HR team is using AI on applications and wants to know what's safe.</q><a href="#c-roles">AI for HR and recruitment</a></li>
+    <ul class="tiles">
+      <li><h3>Who for</h3><p>HR and people teams, public sector teams, charities and other organisations that work with the public. Most of the people I train don't work in technology.</p></li>
+      <li><h3>Where</h3><p>In person in London, on site anywhere else, or online.</p></li>
+      <li><h3>Languages</h3><p>English or Italian.</p></li>
+      <li><h3>Afterwards</h3><p>People know what these tools are good at, where they go wrong, and what should never be put into them.</p></li>
     </ul>
   </div>
 </section>
 
-<!-- 03 COURSES ======================================================== -->
-<section class="sec s-mint same" id="courses" aria-labelledby="courses-h">
-  <div class="wrap stacked">
-    <div class="rail">
-      <p class="num">03</p>
-      <h2 id="courses-h">courses</h2>
-      <p>Five workshops, available from spring 2027. If one fits your team, register your interest and I'll be in touch when dates open. Prices are per session, not per person.</p>
-      <a class="next" href="#prices">All prices</a>
+<!-- COURSES (with where teams usually start) ========================= -->
+<section class="sec s-mint" id="courses" aria-labelledby="courses-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Courses · available from spring 2027</p>
+      <h2 id="courses-h">Which of these sounds like your team?</h2>
+      <p class="muted">Five workshops, available from spring 2027. If one fits your team, register your interest and I'll be in touch when dates open. Prices are per session, not per person.</p>
     </div>
-    <ol class="courses" role="list">
+    <div class="chooser">
+      <div class="situations" role="tablist" aria-label="Situations" aria-orientation="vertical">
+        <button class="situation" type="button" role="tab" id="t-foundations" aria-controls="c-foundations" aria-selected="true">“Half the team is curious, half is worried, and a few have never tried it.”</button>
+        <button class="situation" type="button" role="tab" id="t-prompting" aria-controls="c-prompting" aria-selected="false" tabindex="-1">“People use AI every day, but nobody checks what it gives them.”</button>
+        <button class="situation" type="button" role="tab" id="t-data" aria-controls="c-data" aria-selected="false" tabindex="-1">“People make decisions from dashboards and reports they don't fully trust.”</button>
+        <button class="situation" type="button" role="tab" id="t-policy" aria-controls="c-policy" aria-selected="false" tabindex="-1">“People are already using ChatGPT, and nobody has said what's allowed.”</button>
+        <button class="situation" type="button" role="tab" id="t-roles" aria-controls="c-roles" aria-selected="false" tabindex="-1">“Our HR team is using AI on applications and wants to know what's safe.”</button>
+      </div>
+      <div class="panels">
 
-      <li class="course" id="c-foundations">
-        <div class="txt">
-          <p class="n">01</p>
-          <h3>AI foundations for teams</h3>
-          <p><span class="label">For: </span>a whole team, including people who have never used these tools.</p>
-          <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point: how these tools work, who is behind them and what that means for your organisation, and how to use them well on the documents you already work with.</p>
-        </div>
-        <div class="spec">
-          <dl class="facts">
-            <div><dt>Length</dt><dd>Half day (3½ hours)</dd></div>
-            <div><dt>Group</dt><dd>Up to 15</dd></div>
-            <div><dt>Format</dt><dd>In person or online</dd></div>
-            <div><dt>Language</dt><dd>English or Italian</dd></div>
-            <div><dt>Available</dt><dd>Spring 2027</dd></div>
-          </dl>
-          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI foundations for teams">Register interest <span class="arr" aria-hidden="true">→</span></a>
-        </div>
-      </li>
+        <article class="course" id="c-foundations" role="tabpanel" aria-labelledby="t-foundations">
+          <div class="txt">
+            <p class="if">If half the team is curious, half is worried, and a few have never tried it:</p>
+            <p class="n">Course 01</p>
+            <h3>AI foundations for teams</h3>
+            <p class="for"><b>For:</b> a whole team, including people who have never used these tools.</p>
+            <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point: how these tools work, who is behind them and what that means for your organisation, and how to use them well on the documents you already work with.</p>
+          </div>
+          <div class="spec">
+            <ul aria-label="Details"><li>Half day (3½ hours)</li><li>Up to 15 people</li><li>In person or online</li><li>English or Italian</li><li>From spring 2027</li></ul>
+            <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI foundations for teams">Register interest <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
 
-      <li class="course" id="c-prompting">
-        <div class="txt">
-          <p class="n">02</p>
-          <h3>prompting and checking</h3>
-          <p><span class="label">For: </span>people who already use AI and want results they can rely on.</p>
-          <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
-        </div>
-        <div class="spec">
-          <dl class="facts">
-            <div><dt>Length</dt><dd>Half day</dd></div>
-            <div><dt>Group</dt><dd>Up to 12</dd></div>
-            <div><dt>Format</dt><dd>In person or online</dd></div>
-            <div><dt>Language</dt><dd>English or Italian</dd></div>
-            <div><dt>Available</dt><dd>Spring 2027</dd></div>
-          </dl>
-          <a class="btn" href="[FORM LINK]" aria-label="Register interest: prompting and checking">Register interest <span class="arr" aria-hidden="true">→</span></a>
-        </div>
-      </li>
+        <article class="course" id="c-prompting" role="tabpanel" aria-labelledby="t-prompting" hidden>
+          <div class="txt">
+            <p class="if">If people use AI every day, but nobody checks what it gives them:</p>
+            <p class="n">Course 02</p>
+            <h3>Prompting and checking</h3>
+            <p class="for"><b>For:</b> people who already use AI and want results they can rely on.</p>
+            <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
+          </div>
+          <div class="spec">
+            <ul aria-label="Details"><li>Half day</li><li>Up to 12 people</li><li>In person or online</li><li>English or Italian</li><li>From spring 2027</li></ul>
+            <a class="btn" href="[FORM LINK]" aria-label="Register interest: Prompting and checking">Register interest <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
 
-      <li class="course" id="c-data">
-        <div class="txt">
-          <p class="n">03</p>
-          <h3>working with data without being an analyst</h3>
-          <p><span class="label">For: </span>people who read dashboards, interpret reports, question numbers or write summaries based on them.</p>
-          <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
-        </div>
-        <div class="spec">
-          <dl class="facts">
-            <div><dt>Length</dt><dd>Half day</dd></div>
-            <div><dt>Group</dt><dd>Please enquire</dd></div>
-            <div><dt>Format</dt><dd>In person or online</dd></div>
-            <div><dt>Language</dt><dd>English or Italian</dd></div>
-            <div><dt>Available</dt><dd>Spring 2027</dd></div>
-          </dl>
-          <a class="btn" href="[FORM LINK]" aria-label="Register interest: working with data without being an analyst">Register interest <span class="arr" aria-hidden="true">→</span></a>
-        </div>
-      </li>
+        <article class="course" id="c-data" role="tabpanel" aria-labelledby="t-data" hidden>
+          <div class="txt">
+            <p class="if">If people make decisions from dashboards and reports they don't fully trust:</p>
+            <p class="n">Course 03</p>
+            <h3>Working with data without being an analyst</h3>
+            <p class="for"><b>For:</b> people who read dashboards, interpret reports, question numbers or write summaries based on them.</p>
+            <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
+          </div>
+          <div class="spec">
+            <ul aria-label="Details"><li>Half day</li><li>Group size: please enquire</li><li>In person or online</li><li>English or Italian</li><li>From spring 2027</li></ul>
+            <a class="btn" href="[FORM LINK]" aria-label="Register interest: Working with data without being an analyst">Register interest <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
 
-      <li class="course" id="c-policy">
-        <div class="txt">
-          <p class="n">04</p>
-          <h3>AI policy and governance for managers</h3>
-          <p><span class="label">For: </span>leadership and compliance teams.</p>
-          <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
-        </div>
-        <div class="spec">
-          <dl class="facts">
-            <div><dt>Length</dt><dd>One day</dd></div>
-            <div><dt>Language</dt><dd>English or Italian</dd></div>
-            <div><dt>Available</dt><dd>Spring 2027</dd></div>
-          </dl>
-          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI policy and governance for managers">Register interest <span class="arr" aria-hidden="true">→</span></a>
-        </div>
-      </li>
+        <article class="course" id="c-policy" role="tabpanel" aria-labelledby="t-policy" hidden>
+          <div class="txt">
+            <p class="if">If people are already using ChatGPT, and nobody has said what's allowed:</p>
+            <p class="n">Course 04</p>
+            <h3>AI policy and governance for managers</h3>
+            <p class="for"><b>For:</b> leadership and compliance teams.</p>
+            <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
+          </div>
+          <div class="spec">
+            <ul aria-label="Details"><li>One day</li><li>English or Italian</li><li>From spring 2027</li></ul>
+            <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI policy and governance for managers">Register interest <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
 
-      <li class="course" id="c-roles">
-        <div class="txt">
-          <p class="n">05</p>
-          <h3>AI for HR and recruitment</h3>
-          <p><span class="label">For: </span>HR and recruitment teams. There are also versions for marketing and communications, finance and operations, and client-facing teams.</p>
-          <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
-        </div>
-        <div class="spec">
-          <dl class="facts">
-            <div><dt>Length</dt><dd>Half day</dd></div>
-            <div><dt>Group</dt><dd>Up to 12</dd></div>
-            <div><dt>Format</dt><dd>In person or online</dd></div>
-            <div><dt>Language</dt><dd>English or Italian</dd></div>
-            <div><dt>Available</dt><dd>Spring 2027</dd></div>
-          </dl>
-          <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI for HR and recruitment">Register interest <span class="arr" aria-hidden="true">→</span></a>
-        </div>
-      </li>
+        <article class="course" id="c-roles" role="tabpanel" aria-labelledby="t-roles" hidden>
+          <div class="txt">
+            <p class="if">If your HR team is using AI on applications and wants to know what's safe:</p>
+            <p class="n">Course 05</p>
+            <h3>AI for HR and recruitment</h3>
+            <p class="for"><b>For:</b> HR and recruitment teams. There are also versions for marketing and communications, finance and operations, and client-facing teams.</p>
+            <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
+          </div>
+          <div class="spec">
+            <ul aria-label="Details"><li>Half day</li><li>Up to 12 people</li><li>In person or online</li><li>English or Italian</li><li>From spring 2027</li></ul>
+            <a class="btn" href="[FORM LINK]" aria-label="Register interest: AI for HR and recruitment">Register interest <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+        </article>
 
-    </ol>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- 04 HOW I WORK ===================================================== -->
+<!-- HOW I WORK ======================================================== -->
 <section class="sec s-paper" id="how" aria-labelledby="how-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">04</p>
-      <h2 id="how-h">how I work</h2>
-      <p>Every workshop starts with a conversation, not a checkout.</p>
-      <a class="next" href="#contact">Get in touch</a>
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">How I work</p>
+      <h2 id="how-h">Every workshop starts with a conversation, not a checkout.</h2>
     </div>
-    <div>
-      <ol class="rows steps">
-        <li class="row"><h3>you email me</h3><p>Tell me a little about your team and what you need. A few lines is enough.</p></li>
-        <li class="row"><h3>we talk for 30 minutes</h3><p>About your team, the tools you use, and anything people are worried about.</p></li>
-        <li class="row"><h3>I send a written proposal</h3><p>Which course, how I'll adapt it to you, and the price.</p></li>
-        <li class="row"><h3>the workshop</h3><p>Built around your tools, your documents and your policies, so people practise on the work they'll go back to.</p></li>
-        <li class="row"><h3>afterwards</h3><p>Notes for everyone who took part, and a short follow-up with you.</p></li>
-      </ol>
-      <ul class="rows" style="margin-top:var(--s6)">
-        <li class="row"><h3>what to expect in the room</h3>
-          <ul>
-            <li>Plain language. If I use a technical word, I explain it.</li>
-            <li>Your own work, not generic exercises.</li>
-            <li>Checking, not trusting: every course includes how to check what AI gives you.</li>
-            <li>No hype, in either direction.</li>
-            <li>Questions are the point. Nervous is welcome.</li>
-          </ul>
-        </li>
-        <li class="row" id="prices"><h3>prices</h3>
-          <dl class="price-list">
-            <div><dt>Half-day session, up to 15 people</dt><dd>£1,450</dd></div>
-            <div><dt>Full day, up to 15 people</dt><dd>£1,950</dd></div>
-            <div><dt>Two half-days booked together</dt><dd>£2,100</dd></div>
-          </dl>
-          <p>The policy and governance day, and longer programmes, are quoted on request.</p>
-          <p>Prices are per session, not per person: fifteen people on a half day comes to under £100 each.</p>
-          <p>I'm a sole trader and not VAT registered, so no VAT is added.</p>
-        </li>
-        <li class="row" id="founding"><h3>founding clients</h3>
-          <p>The first three organisations that book a session by 31 March 2027 pay half price. In return, I ask to name you as a client, to measure one task with your team before and after the session, and for a short written comment afterwards.</p>
-        </li>
+    <ol class="steps">
+      <li><h3>You email me</h3><p>Tell me a little about your team and what you need. A few lines is enough.</p></li>
+      <li><h3>We talk for 30 minutes</h3><p>About your team, the tools you use, and anything people are worried about.</p></li>
+      <li><h3>I send a written proposal</h3><p>Which course, how I'll adapt it to you, and the price.</p></li>
+      <li><h3>The workshop</h3><p>Built around your tools, your documents and your policies, so people practise on the work they'll go back to.</p></li>
+      <li><h3>Afterwards</h3><p>Notes for everyone who took part, and a short follow-up with you.</p></li>
+    </ol>
+    <div class="room">
+      <h3>In the room:</h3>
+      <ul>
+        <li>Plain language, every technical word explained</li>
+        <li>Your own work, not generic exercises</li>
+        <li>Checking, not trusting</li>
+        <li>No hype, in either direction</li>
+        <li>Questions are the point. Nervous is welcome</li>
       </ul>
     </div>
+    <div class="money">
+      <div class="prices" id="prices">
+        <h3>Prices, per session not per person</h3>
+        <dl>
+          <div><dt>Half-day session, up to 15 people</dt><dd>£1,450</dd></div>
+          <div><dt>Full day, up to 15 people</dt><dd>£1,950</dd></div>
+          <div><dt>Two half-days booked together</dt><dd>£2,100</dd></div>
+        </dl>
+        <p class="note">The policy and governance day, and longer programmes, are quoted on request. Fifteen people on a half day comes to under £100 each.</p>
+        <p class="note">I'm a sole trader and not VAT registered, so no VAT is added.</p>
+      </div>
+      <div class="founding" id="founding">
+        <h3>Founding clients: half price</h3>
+        <p>The first three organisations that book a session by 31 March 2027 pay half price. In return, I ask to name you as a client, to measure one task with your team before and after the session, and for a short written comment afterwards.</p>
+        <a class="btn" href="mailto:samanta@capiraistudio.com?subject=Founding%20client%20offer">Ask about the offer <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- 05 ABOUT ========================================================== -->
-<section class="sec s-paper same" id="about" aria-labelledby="about-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">05</p>
-      <h2 id="about-h">about</h2>
-      <p>I'm Samanta. CapirAI Studio is a one-person studio.</p>
-      <a class="next" href="#questions">Common questions</a>
+<!-- ABOUT ============================================================= -->
+<section class="sec s-sand" id="about" aria-labelledby="about-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">About</p>
+      <h2 id="about-h">I'm Samanta. CapirAI Studio is a one-person studio.</h2>
     </div>
-    <div class="rows">
-      <div class="row"><img class="portrait" src="portrait.jpg" width="749" height="1000" alt="Samanta, smiling, in a white top against a plain grey background"></div>
-      <div class="row">
+    <div class="about">
+      <img class="portrait" src="portrait.jpg" width="749" height="1000" alt="Samanta, smiling, in a white top against a plain grey background">
+      <div class="story">
         <p class="lead">I've spent my career between people and software: implementing enterprise systems, designing training, and helping organisations adopt AI, including Microsoft 365 Copilot deployments, internal knowledge assistants, and work with councils and local authorities.</p>
         <p>What I care about most is explaining technology to people who never chose to work in it, so they can make their own judgements about it.</p>
-      </div>
-      <div class="row">
-        <h3>the name</h3>
+        <h3>The name</h3>
         <p><i lang="it">Capire</i> is Italian for “to understand”. That's the whole idea: you shouldn't need a technical background to understand the tools your organisation is adopting.</p>
       </div>
-      <div class="row"><h3>background and credentials</h3></div>
-      <dl class="rows facts-list" style="border-top:0">
-        <div class="row"><dt>Based in</dt><dd>London</dd></div>
-        <div class="row"><dt>Works in</dt><dd>English and Italian</dd></div>
-        <div class="row"><dt>Experience</dt><dd>More than eight years implementing enterprise software and training the people who use it, in the public sector, finance and customer service</dd></div>
-        <div class="row"><dt>AI and tech work</dt><dd><ul>
-          <li>Delivered AI literacy training to corporate teams in previous roles</li>
-          <li>Built an internal knowledge assistant on Microsoft 365 Copilot that cut support desk queries by 15% in a quarter</li>
-          <li>Led the adoption of an AI tool for writing correspondence, from user interviews to daily use</li>
-          <li>Designed an accredited RQF Level 5 programme in applied AI, and set up custom Claude Skills to speed up producing its slides in the house style</li>
-          <li>Built <a href="https://plantripai.com/">PlanTripAI</a>, a travel itinerary planner that runs on the Claude and OpenAI APIs</li>
-          <li>Designed and built the <a href="https://esska-focus-meetings.org/">event websites</a> for ESSKA, a European medical society</li>
-          <li>Led a reporting move from a legacy system to Azure Databricks and Power BI</li>
-          <li>Designed and built this website</li>
-        </ul></dd></div>
-        <div class="row"><dt>Qualifications</dt><dd><ul>
-          <li>CIPD Level 5 Certificate in Learning and Development (2022)</li>
-          <li>Google UX Design Certificate (2023)</li>
-          <li>ITIL 4 Foundation (2024)</li>
-          <li>Code First Girls: Data and Software Engineering (2024), Cybersecurity (2025)</li>
-        </ul></dd></div>
-        <div class="row"><dt>Studying</dt><dd>MA in AI for Digital Transformation, University of Southampton (completing May 2028)</dd></div>
-      </dl>
+    </div>
+    <div class="creds" aria-label="Background and credentials" role="group">
+      <div class="cred tall"><h3>AI and tech work</h3><ul>
+        <li>Delivered AI literacy training to corporate teams in previous roles</li>
+        <li>Built an internal knowledge assistant on Microsoft 365 Copilot that cut support desk queries by 15% in a quarter</li>
+        <li>Led the adoption of an AI tool for writing correspondence, from user interviews to daily use</li>
+        <li>Designed an accredited RQF Level 5 programme in applied AI, and set up custom Claude Skills to speed up producing its slides in the house style</li>
+        <li>Built <a href="https://plantripai.com/">PlanTripAI</a>, a travel itinerary planner that runs on the Claude and OpenAI APIs</li>
+        <li>Designed and built the <a href="https://esska-focus-meetings.org/">event websites</a> for ESSKA, a European medical society</li>
+        <li>Led a reporting move from a legacy system to Azure Databricks and Power BI</li>
+        <li>Designed and built this website</li>
+      </ul></div>
+      <div class="cred"><h3>Experience</h3><p>More than eight years implementing enterprise software and training the people who use it, in the public sector, finance and customer service. Based in London, working in English and Italian.</p></div>
+      <div class="cred"><h3>Qualifications</h3><ul>
+        <li>CIPD Level 5 Certificate in Learning and Development (2022)</li>
+        <li>Google UX Design Certificate (2023)</li>
+        <li>ITIL 4 Foundation (2024)</li>
+        <li>Code First Girls: Data and Software Engineering (2024), Cybersecurity (2025)</li>
+      </ul></div>
+      <div class="cred"><h3>Studying</h3><p>MA in AI for Digital Transformation, University of Southampton (completing May 2028)</p></div>
     </div>
   </div>
 </section>
 
-<!-- WRITING: uncomment when the first article is in writing/, and renumber the sections after it.
-<section class="sec s-sand" id="writing" aria-labelledby="writing-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">06</p>
-      <h2 id="writing-h">writing</h2>
-      <p>Short pieces on using AI well at work.</p>
-      <a class="next" href="writing/">All writing</a>
-    </div>
-    <ul class="rows">
-      <li class="row"><p class="label"><time datetime="2026-12-01">1 December 2026</time></p><h3><a href="writing/article-slug.html">article title</a></h3><p>One sentence on what it says.</p></li>
+<!-- WRITING: uncomment when the first article is in writing/.
+<section class="sec s-paper" id="writing" aria-labelledby="writing-h">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Writing</p><h2 id="writing-h">Short pieces on using AI well at work.</h2></div>
+    <ul class="faq" style="margin-top:var(--s5)">
+      <li><p class="small muted"><time datetime="2026-12-01">1 December 2026</time></p><h3><a href="writing/article-slug.html">Article title</a></h3><p>One sentence on what it says.</p></li>
     </ul>
   </div>
 </section>
 -->
 
-<!-- 06 QUESTIONS ====================================================== -->
-<section class="sec s-sand" id="questions" aria-labelledby="questions-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">06</p>
-      <h2 id="questions-h">questions</h2>
-      <p>What people usually ask before getting in touch.</p>
-      <a class="next" href="#contact">Ask me something else</a>
+<!-- QUESTIONS ========================================================= -->
+<section class="sec s-paper" id="questions" aria-labelledby="questions-h">
+  <div class="wrap qa">
+    <div class="head">
+      <p class="eyebrow">Questions</p>
+      <h2 id="questions-h">What people usually ask before getting in touch.</h2>
+      <p><a href="#contact">Ask me something else</a></p>
     </div>
-    <ul class="rows faq">
-      <li class="row"><details><summary><h3>When can we book?</h3></summary>
+    <ul class="faq">
+      <li><details><summary><h3>When can we book?</h3></summary>
         <p>The courses run from spring 2027. Until then, you can come to a free taster, register your interest in a course, or get in touch about the founding-client offer.</p></details></li>
-      <li class="row"><details><summary><h3>Does my team need any technical knowledge?</h3></summary>
+      <li><details><summary><h3>Does my team need any technical knowledge?</h3></summary>
         <p>No. The workshops start from what people already do at work, and every technical word gets explained.</p></details></li>
-      <li class="row"><details><summary><h3>Is it safe? What about our data?</h3></summary>
+      <li><details><summary><h3>Is it safe? What about our data?</h3></summary>
         <p>What not to put into AI tools is part of every course. During the workshop I follow your organisation's rules, and where real documents would be risky we use sample data instead.</p></details></li>
-      <li class="row"><details><summary><h3>Which AI tools do you cover?</h3></summary>
+      <li><details><summary><h3>Which AI tools do you cover?</h3></summary>
         <p>The principles work in whatever tool you use, including ChatGPT, Claude, Gemini and Microsoft Copilot. I run the live demonstrations in Claude, and where your organisation has already chosen a tool, we practise in that one.</p></details></li>
-      <li class="row"><details><summary><h3>Some of my team are nervous about AI. Is that a problem?</h3></summary>
+      <li><details><summary><h3>Some of my team are nervous about AI. Is that a problem?</h3></summary>
         <p>Not at all, and it's common. The workshops are paced for mixed confidence. Nobody has to perform, and worries are treated as useful information, not resistance.</p></details></li>
-      <li class="row"><details><summary><h3>Can you work with our IT team and our policies?</h3></summary>
+      <li><details><summary><h3>Can you work with our IT team and our policies?</h3></summary>
         <p>Yes. I'm happy to talk to IT or compliance beforehand so the workshop matches what's allowed and what's installed.</p></details></li>
-      <li class="row"><details><summary><h3>How much does it cost?</h3></summary>
+      <li><details><summary><h3>How much does it cost?</h3></summary>
         <p>A half-day session is £1,450 for up to 15 people. Prices are per session, not per person. See <a href="#prices">all prices</a>. Every proposal states the full price before you commit to anything.</p></details></li>
-      <li class="row"><details><summary><h3>Do you deliver in Italian?</h3></summary>
+      <li><details><summary><h3>Do you deliver in Italian?</h3></summary>
         <p>Yes. Every course can be run in English or Italian, in person or online.</p></details></li>
-      <li class="row"><details><summary><h3>Can you adapt the workshop for accessibility needs?</h3></summary>
+      <li><details><summary><h3>Can you adapt the workshop for accessibility needs?</h3></summary>
         <p>Yes. Tell me in advance and I'll adjust: materials sent beforehand, large print, extra breaks, captions online, or anything else that helps.</p></details></li>
-      <li class="row"><details><summary><h3>Do you work with training providers?</h3></summary>
+      <li><details><summary><h3>Do you work with training providers?</h3></summary>
         <p>Yes. I work as an associate trainer or subject expert, in English or Italian. In Italy I work with accredited training providers (<i lang="it">enti di formazione</i>), including on longer modular programmes.</p></details></li>
     </ul>
   </div>
 </section>
 
-<!-- 07 CONTACT ======================================================== -->
-<section class="sec s-cream" id="contact" aria-labelledby="contact-h">
-  <div class="wrap ledger">
-    <div class="rail">
-      <p class="num">07</p>
-      <h2 id="contact-h">get in touch</h2>
-      <p>Every workshop starts with an email.</p>
+<!-- CONTACT =========================================================== -->
+<section class="sec s-cream contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Get in touch</p>
+      <h2 id="contact-h">Every workshop starts with an email.</h2>
     </div>
-    <div class="rows">
-      <div class="row"><a class="mail" href="mailto:samanta@capiraistudio.com">samanta@capiraistudio.com</a>
-        <p>You can also write to <a href="mailto:info@capiraistudio.com">info@capiraistudio.com</a>.</p></div>
-      <div class="row">
-        <h3>it helps to tell me</h3>
+    <a class="mail" href="mailto:samanta@capiraistudio.com">samanta@capiraistudio.com</a>
+    <p class="also">You can also write to <a href="mailto:info@capiraistudio.com">info@capiraistudio.com</a>. I reply within 48 hours.</p>
+    <div class="notes">
+      <div>
+        <h3>It helps to tell me</h3>
         <ul>
           <li>Roughly how many people, and what they do</li>
           <li>Which AI tools you use, or are thinking about</li>
           <li>What's worrying you, or what isn't working</li>
           <li>English or Italian</li>
         </ul>
-        <p>I reply within 48 hours.</p>
+      </div>
+      <div>
+        <h3>Newsletter</h3>
         <p>You can also sign up to my newsletter for taster dates and new courses: <mark class="todo">[NEWSLETTER LINK]</mark></p>
       </div>
-      <div class="row">
-        <h3>training providers</h3>
+      <div>
+        <h3>Training providers</h3>
         <p>If you need an AI subject expert or an associate trainer, in English or Italian, I'd be glad to hear from you too. That includes accredited providers in Italy building funded programmes.</p>
       </div>
     </div>
@@ -687,10 +654,10 @@ footer .small{color:var(--muted)}
 <footer>
   <div class="wrap">
     <nav aria-labelledby="site-map-h" id="site-map">
-      <h2 id="site-map-h">on this page</h2>
+      <h2 id="site-map-h">On this page</h2>
       <ul>
+        <li><a href="#taster">Free taster</a></li>
         <li><a href="#what">What I do</a></li>
-        <li><a href="#start">Where teams usually start</a></li>
         <li><a href="#courses">Courses</a></li>
         <li><a href="#how">How I work</a></li>
         <li><a href="#about">About</a></li>
@@ -699,11 +666,11 @@ footer .small{color:var(--muted)}
       </ul>
     </nav>
     <div>
-      <h2>privacy</h2>
+      <h2>Privacy</h2>
       <p>This site sets no cookies and runs no tracking. The taster and interest form is hosted by <mark class="todo">[FORM PROVIDER]</mark>, which has its own privacy policy, and I use your answers only to plan sessions and reply to you. You can join my newsletter only by ticking a separate box. If you email me, I use your details only to reply to you.</p>
     </div>
     <div>
-      <h2>accessibility</h2>
+      <h2>Accessibility</h2>
       <p>This site aims to meet WCAG 2.2 AA. It works with a keyboard, without JavaScript and with animation turned off. If anything gets in your way, please <a href="mailto:samanta@capiraistudio.com?subject=Website%20accessibility">tell me</a>.</p>
     </div>
     <div>
@@ -726,6 +693,30 @@ tbtn.addEventListener('click',function(){
   tbtn.textContent=p?'Play':'Pause';
 });
 
+/* course chooser: situations are tabs (ARIA tabs pattern, arrow keys move) */
+var tabs=[].slice.call(document.querySelectorAll('.situation'));
+function pick(i,focus){
+  tabs.forEach(function(t,j){
+    var on=j===i;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+  });
+  if(focus)tabs[i].focus();
+}
+tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){pick(i)});
+  t.addEventListener('keydown',function(e){
+    var k={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];
+    if(e.key==='Home')k=-i;if(e.key==='End')k=tabs.length-1-i;
+    if(k!==undefined){e.preventDefault();pick((i+k+tabs.length)%tabs.length,true);}
+  });
+});
+/* a link to #c-policy etc. opens that course */
+function fromHash(){
+  var id=location.hash.slice(1);
+  tabs.forEach(function(t,i){if(t.getAttribute('aria-controls')===id)pick(i);});
+}
+fromHash();window.addEventListener('hashchange',fromHash);
+
 /* particle hero (lifted from the current site; mint only) */
 if(!reduce){
   var cv=document.getElementById('stage'),ctx=cv.getContext('2d');
@@ -747,7 +738,7 @@ if(!reduce){
     var o=off.getContext('2d');
     var fs=Math.min(W/(word.length*0.56),H*0.42);
     o.fillStyle='#fff';
-    o.font='800 '+fs+'px "Schibsted Grotesk", sans-serif';
+    o.font='700 '+fs+'px "Instrument Sans", sans-serif';
     o.textAlign='center';o.textBaseline='middle';
     o.fillText(word,W/2,H*0.44);
     var data=o.getImageData(0,0,W,H).data;
@@ -782,7 +773,7 @@ if(!reduce){
   });
   cv.addEventListener('pointerleave',function(){mouse.x=-9999;mouse.y=-9999;});
   window.addEventListener('resize',function(){clearTimeout(window.__rz);window.__rz=setTimeout(size,180);});
-  size();frame();
+  (document.fonts&&document.fonts.load?document.fonts.load('700 40px "Instrument Sans"'):Promise.resolve()).then(size,size);frame();
   setInterval(function(){wi=(wi+1)%words.length;ci=(ci+1)%hues.length;if(W&&H)build(words[wi]);},4200);
 }
 })();
