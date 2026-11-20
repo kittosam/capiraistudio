@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CapirAI Studio — AI training for teams who don't work in tech</title>
-<meta name="description" content="Practical AI workshops for HR teams, charities, hotels, schools, law firms and the public sector. In English and Italian, in London, on site or online.">
+<meta name="description" content="Practical AI workshops for HR and people teams, public sector teams and charities. In English and Italian, in London, on site or online.">
 <meta name="theme-color" content="#0a0d0c">
 <link rel="canonical" href="https://capiraistudio.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -110,7 +110,7 @@ a:hover,a:focus-visible{text-decoration-thickness:3px}
 .navlinks{display:flex;align-items:center;gap:var(--s4);list-style:none;font-size:1rem}
 .navlinks a{color:var(--on-dark);text-decoration-color:transparent}
 .navlinks a:hover,.navlinks a:focus-visible{text-decoration-color:currentColor}
-.navlinks .btn{--btn-bg:var(--mint);--btn-fg:var(--black);min-height:2.75rem;padding:.5rem 1.1rem}
+.navlinks .btn{--btn-bg:var(--mint);--btn-fg:var(--black);color:var(--btn-fg);min-height:2.75rem;padding:.5rem 1.1rem}
 .navlinks .menu{display:none}
 @media (max-width:48rem){
   .navlinks li:not(.keep){display:none}
@@ -188,10 +188,11 @@ html:not(.js) #stage{display:none}
 .course .head .n{font-family:var(--head);font-weight:700;color:var(--fg2);flex:none;min-width:2ch}
 .course:target{box-shadow:inset 4px 0 0 var(--pine);padding-left:var(--s4);animation:landed 1.8s var(--ease)}
 @keyframes landed{from{background:rgba(14,42,43,.1)}to{background:transparent}}
-.facts{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5)}
-.facts div{display:flex;flex-direction:column}
-.facts dt{font-size:1rem;color:var(--fg2)}
-.facts dd{font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s4);padding:var(--s3) 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.facts div{display:flex;flex-direction:column;gap:var(--s1)}
+.facts dt{font-size:.875rem;color:var(--fg2)}
+.facts dd{font-size:1rem;font-weight:700;line-height:1.35}
+@media (max-width:36rem){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .course .ask{font-weight:700}
 
 /* disclosures (courses, questions) */
@@ -292,10 +293,10 @@ footer .small{color:var(--muted)}
   <div class="tick__win">
     <div class="tick__t">
       <ul class="tick__set">
-        <li>AI foundations</li><li>prompting and checking</li><li>working with data</li><li>AI policy</li><li>Copilot adoption</li><li>AI for HR</li><li>English</li><li lang="it">italiano</li><li>London</li><li>on site</li><li>online</li>
+        <li>AI foundations</li><li>prompting and checking</li><li>working with data</li><li>AI policy</li><li>AI for HR</li><li>English</li><li lang="it">italiano</li><li>London</li><li>on site</li><li>online</li>
       </ul>
       <ul class="tick__set" aria-hidden="true">
-        <li>AI foundations</li><li>prompting and checking</li><li>working with data</li><li>AI policy</li><li>Copilot adoption</li><li>AI for HR</li><li>English</li><li lang="it">italiano</li><li>London</li><li>on site</li><li>online</li>
+        <li>AI foundations</li><li>prompting and checking</li><li>working with data</li><li>AI policy</li><li>AI for HR</li><li>English</li><li lang="it">italiano</li><li>London</li><li>on site</li><li>online</li>
       </ul>
     </div>
   </div>
@@ -304,8 +305,33 @@ footer .small{color:var(--muted)}
 
 <main id="main">
 
+<!-- FREE TASTER ===================================================== -->
+<section class="sec s-pine" id="taster" aria-labelledby="taster-h">
+  <div class="wrap ledger">
+    <div class="rail">
+      <h2 id="taster-h">Free taster: AI, who's behind it and how to use it well</h2>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <p class="lead">A 60-minute online session for people who use AI at work, or are about to, and want to understand it better. We look at how generative AI works in plain words, who builds it and who pays for it, including the data, the low-paid work and the energy behind it, and who regulates it in the UK and the EU. Then we try it on a real work task and look at how to check what comes back.</p>
+      </div>
+      <dl class="pairs" style="border-top:0">
+        <div class="row"><dt>When</dt><dd><mark class="todo">[DATE AND TIME]</mark></dd></div>
+        <div class="row"><dt>Where</dt><dd>online</dd></div>
+        <div class="row"><dt>Length</dt><dd>60 minutes</dd></div>
+        <div class="row"><dt>Cost</dt><dd>free</dd></div>
+        <div class="row"><dt>Places</dt><dd>up to 20</dd></div>
+      </dl>
+      <div class="row">
+        <a class="btn" href="[FORM LINK]">Register for the taster</a>
+        <p>The form asks a few questions about your role and what you'd like to learn, so I can shape the session around the people coming.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 01 WHAT I DO ====================================================== -->
-<section class="sec s-pine" id="what" aria-labelledby="what-h">
+<section class="sec s-pine same" id="what" aria-labelledby="what-h">
   <div class="wrap ledger">
     <div class="rail">
       <p class="num">01</p>
@@ -320,7 +346,7 @@ footer .small{color:var(--muted)}
       </div>
       <div class="row">
         <dt>who for</dt>
-        <dd>HR teams, charities, hotels and hospitality, schools, law firms and public sector teams. Most of the people I train don't work in technology, and some are uneasy about AI. That's who the workshops are built for.</dd>
+        <dd>HR and people teams, public sector teams, charities and other organisations that work with the public. Most of the people I train don't work in technology, and some are uneasy about AI. That's who the workshops are built for.</dd>
       </div>
       <div class="row">
         <dt>where</dt>
@@ -345,14 +371,13 @@ footer .small{color:var(--muted)}
       <p class="num">02</p>
       <h2 id="start-h">where teams usually start</h2>
       <p>Find the situation that sounds most like yours. Each one points to the course that fits it.</p>
-      <a class="next" href="#courses">See all six courses</a>
+      <a class="next" href="#courses">See all five courses</a>
     </div>
     <ul class="rows">
       <li class="row sit"><q>People are already using ChatGPT, and nobody has said what's allowed.</q><a href="#c-policy">AI policy and governance for managers</a></li>
       <li class="row sit"><q>Half the team is curious, half is worried, and a few have never tried it.</q><a href="#c-foundations">AI foundations for teams</a></li>
       <li class="row sit"><q>People use AI every day, but nobody checks what it gives them.</q><a href="#c-prompting">Prompting and checking</a></li>
       <li class="row sit"><q>People make decisions from dashboards and reports they don't fully trust.</q><a href="#c-data">Working with data without being an analyst</a></li>
-      <li class="row sit"><q>We've paid for Copilot licences, and use has dropped off.</q><a href="#c-copilot">Microsoft 365 Copilot</a></li>
       <li class="row sit"><q>Our HR team is using AI on applications and wants to know what's safe.</q><a href="#c-roles">AI for HR and recruitment</a></li>
     </ul>
   </div>
@@ -364,7 +389,7 @@ footer .small{color:var(--muted)}
     <div class="rail">
       <p class="num">03</p>
       <h2 id="courses-h">courses</h2>
-      <p>Six workshops, in order of where most teams start. Prices are per session, not per person.</p>
+      <p>Five workshops, available from spring 2027. If one fits your team, register your interest and I'll be in touch when dates open. Prices are per session, not per person.</p>
       <a class="next" href="#prices">All prices</a>
     </div>
     <ol class="rows" role="list">
@@ -372,146 +397,69 @@ footer .small{color:var(--muted)}
       <li class="row course" id="c-foundations">
         <div class="head"><span class="n">01</span><h3>AI foundations for teams</h3></div>
         <p><span class="label">For: </span>a whole team, including people who have never used these tools.</p>
+        <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point: how these tools work, who is behind them and what that means for your organisation, and how to use them well on the documents you already work with.</p>
         <dl class="facts">
           <div><dt>Length</dt><dd>Half day (3½ hours)</dd></div>
           <div><dt>Group</dt><dd>Up to 15</dd></div>
           <div><dt>Format</dt><dd>In person or online</dd></div>
           <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£1,450</dd></div>
+          <div><dt>Available</dt><dd>Spring 2027</dd></div>
         </dl>
-        <p>Most people are already using AI tools, and most of them learned by guessing. This gives the whole team one shared starting point, using the tools and documents they already work with.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>What these tools are doing when they answer, with no maths</li>
-            <li>Why an invented answer sounds exactly as confident as a correct one</li>
-            <li>Asking properly: people rewrite a real task from their own week and compare the results</li>
-            <li>What must never go in, and what to do instead when the material is sensitive</li>
-            <li>Checking: every table gets the same AI-written document with four errors hidden in it</li>
-            <li>Who is accountable for what gets sent</li>
-            <li>One thing each person will start doing on Monday, and one thing they'll stop</li>
-          </ul>
-          <p>Afterwards you receive an attendance record and a short written summary, which you can also keep as a record of the AI literacy measures you've taken.</p>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=AI%20foundations%20for%20teams">Ask about AI foundations</a>
+        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI foundations for teams">Register interest</a>
       </li>
 
       <li class="row course" id="c-prompting">
         <div class="head"><span class="n">02</span><h3>prompting and checking</h3></div>
         <p><span class="label">For: </span>people who already use AI and want results they can rely on.</p>
+        <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
         <dl class="facts">
           <div><dt>Length</dt><dd>Half day</dd></div>
           <div><dt>Group</dt><dd>Up to 12</dd></div>
           <div><dt>Format</dt><dd>In person or online</dd></div>
           <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£1,450</dd></div>
+          <div><dt>Available</dt><dd>Spring 2027</dd></div>
         </dl>
-        <p>The gap between people who find AI useful and people who find it disappointing is mostly in how they ask, and in whether they check.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>Briefing a tool the way you'd brief a new colleague: context, limits and an example of what good looks like</li>
-            <li>Telling it to say when it doesn't know</li>
-            <li>The kinds of error these tools make, and how to spot them</li>
-            <li>Checking a claim you aren't in a position to assess yourself</li>
-            <li>When to stop and do the work yourself</li>
-          </ul>
-          <p>Everyone leaves with a set of prompts built around their own recurring tasks, ready to use the next morning.</p>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=Prompting%20and%20checking">Ask about prompting and checking</a>
+        <a class="ask" href="[FORM LINK]" aria-label="Register interest: prompting and checking">Register interest</a>
       </li>
 
       <li class="row course" id="c-data">
         <div class="head"><span class="n">03</span><h3>working with data without being an analyst</h3></div>
         <p><span class="label">For: </span>people who read dashboards, interpret reports, question numbers or write summaries based on them.</p>
+        <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
         <dl class="facts">
           <div><dt>Length</dt><dd>Half day</dd></div>
           <div><dt>Group</dt><dd>Please enquire</dd></div>
           <div><dt>Format</dt><dd>In person or online</dd></div>
           <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£1,450</dd></div>
+          <div><dt>Available</dt><dd>Spring 2027</dd></div>
         </dl>
-        <p>In most organisations, decisions are made from numbers that nobody in the room has questioned. This session builds the habit of questioning them, with the same checking skills as the AI courses.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>What a figure shows, and what it doesn't</li>
-            <li>How to ask where a number came from</li>
-            <li>When a comparison is misleading</li>
-            <li>Using AI tools on a spreadsheet without accepting whatever they produce</li>
-          </ul>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=Working%20with%20data">Ask about working with data</a>
+        <a class="ask" href="[FORM LINK]" aria-label="Register interest: working with data without being an analyst">Register interest</a>
       </li>
 
       <li class="row course" id="c-policy">
         <div class="head"><span class="n">04</span><h3>AI policy and governance for managers</h3></div>
         <p><span class="label">For: </span>leadership and compliance teams.</p>
+        <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
         <dl class="facts">
           <div><dt>Length</dt><dd>One day</dd></div>
           <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£2,400, including the documents</dd></div>
+          <div><dt>Available</dt><dd>Spring 2027</dd></div>
         </dl>
-        <p>Most organisations have no written position on AI, which means every employee is setting their own.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>What applies to your organisation now, and what's coming</li>
-            <li>Being open with people: when they're talking to a chatbot, and when content was made with AI</li>
-            <li>What taking reasonable steps on AI literacy looks like in practice</li>
-            <li>The stricter rules ahead for AI used in recruitment, education, credit and essential services</li>
-            <li>What to write down, and who owns it</li>
-          </ul>
-          <p>You leave with documents, not just notes: a draft internal AI policy, a register of the AI tools in use, and a short plan with named owners and dates.</p>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=AI%20policy%20and%20governance%20for%20managers">Ask about AI policy and governance</a>
-      </li>
-
-      <li class="row course" id="c-copilot">
-        <div class="head"><span class="n">05</span><h3>Microsoft 365 Copilot: getting past the first six weeks</h3></div>
-        <p><span class="label">For: </span>organisations that have bought the licences and aren't getting the value, or are about to roll out.</p>
-        <dl class="facts">
-          <div><dt>Length</dt><dd>One to three days, scoped to you</dd></div>
-          <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£1,950 a day</dd></div>
-        </dl>
-        <p>Most Copilot rollouts look healthy for a month. Then use falls away to a small group of enthusiasts, while the licences cost the same.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>Finding the few tasks in each team where Copilot earns its place</li>
-            <li>Turning those tasks into repeatable habits</li>
-            <li>Internal champions who can answer questions without going through IT</li>
-            <li>A usage review after eight weeks, to see what held</li>
-          </ul>
-          <p>This comes from rollouts I've run, the ones that worked and the ones that stalled, rather than from the product documentation.</p>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=Microsoft%20365%20Copilot%20adoption">Ask about Copilot adoption</a>
+        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI policy and governance for managers">Register interest</a>
       </li>
 
       <li class="row course" id="c-roles">
-        <div class="head"><span class="n">06</span><h3>AI for HR and recruitment</h3></div>
+        <div class="head"><span class="n">05</span><h3>AI for HR and recruitment</h3></div>
         <p><span class="label">For: </span>HR and recruitment teams. There are also versions for marketing and communications, finance and operations, and client-facing teams.</p>
+        <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
         <dl class="facts">
           <div><dt>Length</dt><dd>Half day</dd></div>
           <div><dt>Group</dt><dd>Up to 12</dd></div>
           <div><dt>Format</dt><dd>In person or online</dd></div>
           <div><dt>Language</dt><dd>English or Italian</dd></div>
-          <div><dt>Price</dt><dd>£1,450</dd></div>
+          <div><dt>Available</dt><dd>Spring 2027</dd></div>
         </dl>
-        <p>HR teams use AI on the most sensitive material an organisation holds: information about people. Screening applications or summarising a performance conversation carries risks that writing a newsletter doesn't.</p>
-        <details>
-          <summary>What's covered</summary>
-          <ul>
-            <li>Where bias gets in, in screening, adverts and summaries</li>
-            <li>What you can and can't put into a general-purpose tool under UK GDPR and the EU GDPR</li>
-            <li>Keeping a person genuinely in the decision, not just approving an output</li>
-            <li>What the EU AI Act says about AI in employment decisions, and what's coming</li>
-            <li>Practice on your own job adverts, screening process and templates</li>
-          </ul>
-          <p>The other versions keep the same structure and change the examples, the risks and the exercises.</p>
-        </details>
-        <a class="ask" href="mailto:samanta@capiraistudio.com?subject=AI%20for%20HR%20and%20recruitment">Ask about the HR workshop</a>
+        <a class="ask" href="[FORM LINK]" aria-label="Register interest: AI for HR and recruitment">Register interest</a>
       </li>
 
     </ol>
@@ -550,15 +498,13 @@ footer .small{color:var(--muted)}
             <div><dt>Half-day session, up to 15 people</dt><dd>£1,450</dd></div>
             <div><dt>Full day, up to 15 people</dt><dd>£1,950</dd></div>
             <div><dt>Two half-days booked together</dt><dd>£2,100</dd></div>
-            <div><dt>Policy and governance day, including the documents</dt><dd>£2,400</dd></div>
-            <div><dt>Microsoft 365 Copilot adoption</dt><dd>£1,950 a day</dd></div>
-            <div><dt>Ongoing advisory</dt><dd>£1,500 a month</dd></div>
-            <div><dt>Public sector day rate</dt><dd>£650 to £850</dd></div>
           </dl>
+          <p>The policy and governance day, and longer programmes, are quoted on request.</p>
           <p>Prices are per session, not per person: fifteen people on a half day comes to under £100 each.</p>
-          <p>Ongoing advisory is month-by-month help putting your AI policy, your register of AI tools and your ways of telling people when AI was used into practice.</p>
-          <p>For public sector work, the day rate covers delivery. Preparation and materials are quoted as a separate line.</p>
           <p>I'm a sole trader and not VAT registered, so no VAT is added.</p>
+        </li>
+        <li class="row" id="founding"><h3>founding clients</h3>
+          <p>The first three organisations that book a session by 31 March 2027 pay half price. In return, I ask to name you as a client, to measure one task with your team before and after the session, and for a short written comment afterwards.</p>
         </li>
       </ul>
     </div>
@@ -590,6 +536,7 @@ footer .small{color:var(--muted)}
         <div class="row"><dt>Works in</dt><dd>English and Italian</dd></div>
         <div class="row"><dt>Experience</dt><dd>More than eight years implementing enterprise software and training the people who use it, in the public sector, finance and customer service</dd></div>
         <div class="row"><dt>AI and tech work</dt><dd><ul>
+          <li>Delivered AI literacy training to corporate teams in previous roles</li>
           <li>Built an internal knowledge assistant on Microsoft 365 Copilot that cut support desk queries by 15% in a quarter</li>
           <li>Led the adoption of an AI tool for writing correspondence, from user interviews to daily use</li>
           <li>Designed an accredited RQF Level 5 programme in applied AI, and set up custom Claude Skills to speed up producing its slides in the house style</li>
@@ -636,12 +583,14 @@ footer .small{color:var(--muted)}
       <a class="next" href="#contact">Ask me something else</a>
     </div>
     <ul class="rows faq">
+      <li class="row"><details><summary><h3>When can we book?</h3></summary>
+        <p>The courses run from spring 2027. Until then, you can come to a free taster, register your interest in a course, or get in touch about the founding-client offer.</p></details></li>
       <li class="row"><details><summary><h3>Does my team need any technical knowledge?</h3></summary>
         <p>No. The workshops start from what people already do at work, and every technical word gets explained.</p></details></li>
       <li class="row"><details><summary><h3>Is it safe? What about our data?</h3></summary>
         <p>What not to put into AI tools is part of every course. During the workshop I follow your organisation's rules, and where real documents would be risky we use sample data instead.</p></details></li>
       <li class="row"><details><summary><h3>Which AI tools do you cover?</h3></summary>
-        <p>Whichever your team uses or is planning to use, such as ChatGPT, Microsoft 365 Copilot, Gemini or Claude. The habits I teach work across all of them.</p></details></li>
+        <p>The principles work in whatever tool you use, including ChatGPT, Claude, Gemini and Microsoft Copilot. I run the live demonstrations in Claude, and where your organisation has already chosen a tool, we practise in that one.</p></details></li>
       <li class="row"><details><summary><h3>Some of my team are nervous about AI. Is that a problem?</h3></summary>
         <p>Not at all, and it's common. The workshops are paced for mixed confidence. Nobody has to perform, and worries are treated as useful information, not resistance.</p></details></li>
       <li class="row"><details><summary><h3>Can you work with our IT team and our policies?</h3></summary>
@@ -678,6 +627,7 @@ footer .small{color:var(--muted)}
           <li>English or Italian</li>
         </ul>
         <p>I reply within 48 hours.</p>
+        <p>You can also sign up to my newsletter for taster dates and new courses: <mark class="todo">[NEWSLETTER LINK]</mark></p>
       </div>
       <div class="row">
         <h3>training providers</h3>
@@ -705,7 +655,7 @@ footer .small{color:var(--muted)}
     </nav>
     <div>
       <h2>privacy</h2>
-      <p>This site sets no cookies, runs no tracking and has no forms. If you email me, I use your details only to reply to you.</p>
+      <p>This site sets no cookies and runs no tracking. The taster and interest form is hosted by <mark class="todo">[FORM PROVIDER]</mark>, which has its own privacy policy, and I use your answers only to plan sessions and reply to you. You can join my newsletter only by ticking a separate box. If you email me, I use your details only to reply to you.</p>
     </div>
     <div>
       <h2>accessibility</h2>
